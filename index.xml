@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fadhil Yori Hibatullah</title><link>https://example.com/</link><description>Recent content on Fadhil Yori Hibatullah</description><generator>Hugo -- gohugo.io</generator><language>id-id</language><lastBuildDate>Sun, 12 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Cara Menggunakan Mirror Buaya di Ubuntu</title><link>https://example.com/p/cara-menggunakan-mirror-buaya-di-ubuntu/</link><pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate><guid>https://example.com/p/cara-menggunakan-mirror-buaya-di-ubuntu/</guid><description>&lt;img src="https://example.com/p/cara-menggunakan-mirror-buaya-di-ubuntu/buaya.klas.or.id-cover.png" alt="Featured image of post Cara Menggunakan Mirror Buaya di Ubuntu" />&lt;h2 id="apa-itu-buaya-klas">Apa itu Buaya KLAS?&lt;/h2>
+&lt;p>Buaya KLAS merupakan mirror Linux gratis yang dirawat oleh teman-teman KLAS (Kelompok Linux Arek Suroboyo) dimana server ini berada di daerah Kota Surabaya, Indonesia. Saat ini ada 6 distribusi Linux yang ada di Buaya, yaitu:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://buaya.klas.or.id/ubuntu" target="_blank" rel="noopener"
+>Ubuntu&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="http://buaya.klas.or.id/ubuntu-ports" target="_blank" rel="noopener"
+>Ubuntu Ports&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="http://buaya.klas.or.id/opensuse" target="_blank" rel="noopener"
+>openSUSE Leap&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="http://buaya.klas.or.id/arch" target="_blank" rel="noopener"
+>Arch Linux&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="http://buaya.klas.or.id/almalinux" target="_blank" rel="noopener"
+>AlmaLinux&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="http://buaya.klas.or.id/debian" target="_blank" rel="noopener"
+>Debian&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="http://buaya.klas.or.id/tdf/libreoffice" target="_blank" rel="noopener"
+>LibreOffice&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Bagi kalian yang berada di Indonesia khususnya daerah Jawa Timur, kalian bisa menggunakan mirror Buaya atau menggunakan mirror lain yang berada di Indonesia agar waktu untuk mengunduh paket atau sekadar mengecek update bisa lebih efisien dan relatif lebih cepat.&lt;/p>
+&lt;h2 id="bagaimana-cara-menggunakan-mirror-buaya-klas-di-ubuntu">Bagaimana cara menggunakan mirror Buaya KLAS di Ubuntu?&lt;/h2>
+&lt;p>Kita langsung ke pembahasan, disini saya akan memberikan tutorial melalui &lt;em>Graphical User Interface&lt;/em> atau GUI dan melalui terminal.&lt;/p>
+&lt;h3 id="melalui-gui">Melalui GUI&lt;/h3>
+&lt;ol>
+&lt;li>Buka aplikasi &amp;ldquo;&lt;em>Software &amp;amp; Updates&lt;/em>&amp;rdquo;&lt;/li>
+&lt;li>Pada bagian &amp;ldquo;&lt;em>Download from:&lt;/em>&amp;rdquo;, pilih &lt;em>Other&amp;hellip;&lt;/em>
+&lt;figure
+class="gallery-image"
+style="
+flex-grow: 211;
+flex-basis: 506px"
+>
+&lt;a href="https://example.com/p/cara-menggunakan-mirror-buaya-di-ubuntu/how-to-use-gui-3.png" data-size="994x471">
+&lt;img src="https://example.com/p/cara-menggunakan-mirror-buaya-di-ubuntu/how-to-use-gui-3.png"
+width="994"
+height="471"
+srcset="https://example.com/p/cara-menggunakan-mirror-buaya-di-ubuntu/how-to-use-gui-3_huf08e8c7439cc7476b9138d570d6437bc_59710_480x0_resize_box_3.png 480w, https://example.com/p/cara-menggunakan-mirror-buaya-di-ubuntu/how-to-use-gui-3_huf08e8c7439cc7476b9138d570d6437bc_59710_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Gambar 1 - Tampilan aplikasi Software &amp; Updates">
+&lt;/a>
+&lt;figcaption>Gambar 1 - Tampilan aplikasi Software &amp;amp; Updates&lt;/figcaption>
+&lt;/figure>&lt;/li>
+&lt;li>Kemudian cari Indonesia dan lebarkan, kemudian pilih buaya.klas.or.id
+&lt;figure
+class="gallery-image"
+style="
+flex-grow: 210;
+flex-basis: 506px"
+>
+&lt;a href="https://example.com/p/cara-menggunakan-mirror-buaya-di-ubuntu/how-to-use-gui-4.png" data-size="991x470">
+&lt;img src="https://example.com/p/cara-menggunakan-mirror-buaya-di-ubuntu/how-to-use-gui-4.png"
+width="991"
+height="470"
+srcset="https://example.com/p/cara-menggunakan-mirror-buaya-di-ubuntu/how-to-use-gui-4_hu80f030fa75515efb1a5de1e1f97961ea_76922_480x0_resize_box_3.png 480w, https://example.com/p/cara-menggunakan-mirror-buaya-di-ubuntu/how-to-use-gui-4_hu80f030fa75515efb1a5de1e1f97961ea_76922_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Gambar 2 - Tampilan daftar server">
+&lt;/a>
+&lt;figcaption>Gambar 2 - Tampilan daftar server&lt;/figcaption>
+&lt;/figure>&lt;/li>
+&lt;li>Dan kemudian klik tombol &amp;ldquo;Choose server&amp;rdquo;&lt;/li>
+&lt;li>Setelah itu bisa tutup aplikasi dan jangan lupa untuk memperbarui paket&lt;/li>
+&lt;/ol>
+&lt;h3 id="melalui-terminal">Melalui Terminal&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>Sunting /etc/apt/sources.list dengan editor teks&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ganti semua URL bawaan ke URL Buaya KLAS &lt;code>https://buaya.klas.or.id/ubuntu/&lt;/code>&lt;/p>
+&lt;p>Example :
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">deb https://buaya.klas.or.id/ubuntu/ focal main
+deb-src https://buaya.klas.or.id/ubuntu/ focal main &lt;/code>&lt;/pre>&lt;/div>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Simpan perubahan&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Jangan lupa untuk update paket dengan perintah &lt;code>sudo apt update&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>
