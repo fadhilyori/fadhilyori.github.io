@@ -1,4 +1,256 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fadhil Yori Hibatullah</title><link>https://fadhilyori.my.id/</link><description>Recent content on Fadhil Yori Hibatullah</description><generator>Hugo -- gohugo.io</generator><language>id-id</language><lastBuildDate>Sun, 12 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fadhilyori.my.id/index.xml" rel="self" type="application/rss+xml"/><item><title>Cara Menggunakan Mirror Buaya di Ubuntu</title><link>https://fadhilyori.my.id/p/cara-menggunakan-mirror-buaya-di-ubuntu/</link><pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate><guid>https://fadhilyori.my.id/p/cara-menggunakan-mirror-buaya-di-ubuntu/</guid><description>&lt;img src="https://fadhilyori.my.id/p/cara-menggunakan-mirror-buaya-di-ubuntu/buaya.klas.or.id-cover.png" alt="Featured image of post Cara Menggunakan Mirror Buaya di Ubuntu" />&lt;h2 id="apa-itu-buaya-klas">Apa itu Buaya KLAS?&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fadhil Yori Hibatullah</title><link>https://fadhilyori.my.id/</link><description>Recent content on Fadhil Yori Hibatullah</description><generator>Hugo -- gohugo.io</generator><language>id-id</language><lastBuildDate>Thu, 06 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://fadhilyori.my.id/index.xml" rel="self" type="application/rss+xml"/><item><title>Addressing the Memory Leak Bug in My Personal Project (subping)</title><link>https://fadhilyori.my.id/p/addressing-the-memory-leak-bug-in-my-personal-project-subping/</link><pubDate>Thu, 06 Jul 2023 00:00:00 +0000</pubDate><guid>https://fadhilyori.my.id/p/addressing-the-memory-leak-bug-in-my-personal-project-subping/</guid><description>&lt;img src="https://fadhilyori.my.id/p/addressing-the-memory-leak-bug-in-my-personal-project-subping/cover.jpg" alt="Featured image of post Addressing the Memory Leak Bug in My Personal Project (subping)" />&lt;h1 id="addressing-the-memory-leak-bug-in-my-personal-project-subping">Addressing the Memory Leak Bug in My Personal Project (subping)&lt;/h1>
+&lt;blockquote>
+&lt;p>&lt;strong>Author&lt;/strong>: &lt;a class="link" href="https://github.com/fadhilyori" target="_blank" rel="noopener"
+>Fadhil Yori&lt;/a>&lt;br>
+&lt;strong>Project&lt;/strong>: &lt;a class="link" href="https://github.com/fadhilyori/subping" target="_blank" rel="noopener"
+>https://github.com/fadhilyori/subping&lt;/a>&lt;br>
+&lt;strong>Related Issue&lt;/strong>: &lt;a class="link" href="https://github.com/fadhilyori/subping/issues/23" target="_blank" rel="noopener"
+>https://github.com/fadhilyori/subping/issues/23&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="background">Background&lt;/h1>
+&lt;p>During the development process of &lt;a class="link" href="https://github.com/fadhilyori/subping" target="_blank" rel="noopener"
+>subping&lt;/a>, our team encountered a critical issue involving a memory leak that specifically occurs when handling a substantial number of &lt;a class="link" href="https://en.wikipedia.org/wiki/IPv6_address" target="_blank" rel="noopener"
+>IPv6&lt;/a> hosts. This memory leak has a negative impact on the application&amp;rsquo;s performance and raises concerns regarding its stability and scalability.&lt;/p>
+&lt;p>We have observed that the leak becomes more pronounced as the number of IPv6 hosts increases. This observation has led us to investigate the intricacies of IPv6 host handling and its impact on memory management within the application. The significant increase in memory consumption under these conditions indicates the presence of a memory leak. Extensive testing and simulations have confirmed the intensity of the leak and its direct correlation with the workload. As a result, we have undertaken a focused investigation into the complex dynamics between IPv6 host handling and memory management. Armed with this knowledge, we have embarked on developing an optimized solution to ensure the stability and efficiency of subping.&lt;/p>
+&lt;p>To gain further insights and effectively address this issue, we have initiated a comprehensive benchmark test. This test aims to evaluate the application&amp;rsquo;s performance under various scenarios, with a specific focus on monitoring memory usage during the processing of IPv6 hosts. Through this benchmark test, our objective is to uncover patterns and behaviors that will help us identify the root cause of the memory leak.&lt;/p>
+&lt;p>Our ultimate goal is to ensure a stable and efficient solution for handling IPv6 hosts within the subping application.&lt;/p>
+&lt;h1 id="main-problem">Main Problem&lt;/h1>
+&lt;p>The following code snippet demonstrates a function called &lt;strong>GenerateIPListFromCIDR&lt;/strong> that generates a list of IP addresses within a specified range using CIDR notation. However, careful examination reveals a memory leak in the implementation, which can lead to inefficient memory usage over time.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// GenerateIPListFromCIDR generates a list of IP addresses within the specified range
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// based on the given CIDR notation.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="nf">GenerateIPListFromCIDR&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">cidr&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IPNet&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">ips&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">firstIP&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">cidr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">copy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">firstIP&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">cidr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">cidr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Contains&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">firstIP&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">newIP&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">firstIP&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">copy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">newIP&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">firstIP&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ips&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ips&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">newIP&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">inc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">firstIP&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">([]&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">ips&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// inc increments the given IP address by one.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// It handles both IPv4 and IPv6 addresses.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="nf">inc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ip&lt;/span> &lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ip&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span>&lt;span class="o">--&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ip&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">j&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">++&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">ip&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">j&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The memory leak in this code arises due to a combination of factors. Firstly, each IP address generated within the range is appended to the &lt;code>ips&lt;/code> slice using the &lt;code>append&lt;/code> function. However, with each append operation, a new copy of the IP address is created using &lt;code>make&lt;/code> and &lt;code>copy&lt;/code>, resulting in unnecessary memory allocation and consumption.&lt;/p>
+&lt;p>Furthermore, the original implementation includes the line &lt;code>append([]net.IP{}, ips...)&lt;/code> at the end of the function, which creates a new slice and copies all IP addresses from the &lt;code>ips&lt;/code> slice. This duplication further exacerbates the memory usage issue.&lt;/p>
+&lt;h1 id="the-solution-utilizing-the-iterator-design-pattern">The Solution: Utilizing the Iterator Design Pattern&lt;/h1>
+&lt;p>To address the memory leak issue and optimize the code, we have utilized the Iterator design pattern. This pattern enables us to encapsulate the iteration logic and provide a consistent interface for traversing individual host IP addresses within the specified CIDR range.&lt;/p>
+&lt;p>By applying the Iterator design pattern, we achieve a clear separation of concerns, keeping the traversal behavior decoupled from the underlying data structure. This promotes loose coupling and enhances code maintainability, as clients can now access elements sequentially without being exposed to the implementation details of the data structure.&lt;/p>
+&lt;p>In our solution, we introduced the &lt;code>HostsIterator&lt;/code> struct, which serves as the iterator. It takes responsibility for maintaining the iteration state and provides a method (&lt;code>Next&lt;/code>) to advance to the next IP address. By encapsulating the iteration logic within the &lt;code>HostsIterator&lt;/code> struct, we adhere to the principles of the Iterator design pattern.&lt;/p>
+&lt;p>To ensure an organized codebase, we suggest placing the &lt;code>HostsIterator&lt;/code> struct and its associated methods (&lt;code>NewHostsIterator&lt;/code> and &lt;code>Next&lt;/code>) in a dedicated file or section that focuses specifically on iterator-related functionality. This approach promotes a clear separation of concerns and facilitates easy reuse and future extension of the iterator implementation.&lt;/p>
+&lt;p>By leveraging the power of the Iterator design pattern, we enhance the clarity and maintainability of our code. Clients can now seamlessly iterate over host IP addresses within a CIDR range using a consistent and intuitive interface.&lt;/p>
+&lt;h2 id="the-iterator-design-pattern">The Iterator Design Pattern&lt;/h2>
+&lt;p>The Iterator design pattern is a behavioral design pattern that provides a way to access elements of an aggregate object sequentially without exposing its underlying representation. It separates the traversal behavior from the aggregate object, allowing clients to access elements in a consistent manner without knowing the internal structure of the object.&lt;/p>
+&lt;h3 id="key-participants">Key Participants&lt;/h3>
+&lt;p>The Iterator design pattern typically involves the following key participants:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Iterator&lt;/strong>: Defines the interface for accessing elements in the collection.&lt;/li>
+&lt;li>&lt;strong>ConcreteIterator&lt;/strong>: Implements the Iterator interface, keeps track of the current position in the collection, and provides methods for traversing the collection.&lt;/li>
+&lt;li>&lt;strong>Aggregate&lt;/strong>: Defines the interface for creating an Iterator object.&lt;/li>
+&lt;li>&lt;strong>Concrete Aggregate&lt;/strong>: Implements the Aggregate interface and returns a ConcreteIterator that traverses the collection.&lt;/li>
+&lt;/ul>
+&lt;h3 id="benefits-of-the-iterator-design-pattern">Benefits of the Iterator Design Pattern&lt;/h3>
+&lt;p>The Iterator design pattern offers several benefits, including:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Separation of Concerns&lt;/strong>: The pattern separates the traversal behavior from the underlying collection, promoting a clear separation of concerns.&lt;/li>
+&lt;li>&lt;strong>Decoupling&lt;/strong>: Clients can iterate over elements without being exposed to the internal structure of the collection, reducing dependencies.&lt;/li>
+&lt;li>&lt;strong>Flexibility&lt;/strong>: It allows for multiple iterators to coexist and iterate over the same collection independently.&lt;/li>
+&lt;li>&lt;strong>Consistency&lt;/strong>: Provides a unified interface for iterating over elements, regardless of the specific collection implementation.&lt;/li>
+&lt;/ul>
+&lt;h3 id="graph-representation">Graph Representation&lt;/h3>
+&lt;p>The following graph illustrates the structure of the Iterator design pattern:&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-mermaid" data-lang="mermaid">graph LR
+A[Aggregate] -- creates --&amp;gt; B(Iterator)
+B -- uses --&amp;gt; C(ConcreteIterator)
+&lt;/code>&lt;/pre>&lt;h2 id="the-new-code">The New Code&lt;/h2>
+&lt;p>&lt;code>HostsIterator&lt;/code> represents an iterator for traversing the individual host IP addresses within a given CIDR range.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">type&lt;/span> &lt;span class="nx">HostsIterator&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPNet&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IPNet&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">CurrentIP&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FirstIP&lt;/span> &lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>NewHostsIterator&lt;/code> creates a new HostsIterator instance for the specified CIDR range. It parses the CIDR string, initializes the iterator with the first IP address in the range, and returns a pointer to the HostsIterator.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">NewHostsIterator&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">cidr&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">HostsIterator&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ip&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">ipNet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ParseCIDR&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">cidr&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">firstIP&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ip&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">copy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">firstIP&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">ip&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">HostsIterator&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FirstIP&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">firstIP&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPNet&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">ipNet&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">CurrentIP&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>Next&lt;/code> advances the iterator to the next host IP address. It increments the IP address by one, starting from the least significant byte, until a non-zero value is encountered or the entire address has been traversed. The modified IP address is stored in the HostsIterator&amp;rsquo;s CurrentIP field. The method returns a pointer to the modified IP address.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">n&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">HostsIterator&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Next&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CurrentIP&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">currentIp&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">FirstIP&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">copy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">currentIp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">FirstIP&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CurrentIP&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">currentIp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CurrentIP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">nextIP&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CurrentIP&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">copy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">nextIP&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CurrentIP&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">nextIP&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">--&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">nextIP&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">++&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">nextIP&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IPNet&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Contains&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">nextIP&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CurrentIP&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">nextIP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CurrentIP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>Next2&lt;/code> is an optimized version of &lt;code>Next()&lt;/code> function.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">n&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">HostsIterator&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Next2&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CurrentIP&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">currentIP&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IP&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">FirstIP&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">copy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">currentIP&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">FirstIP&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CurrentIP&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">currentIP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CurrentIP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">currentIP&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CurrentIP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">currentIP&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">--&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">currentIP&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">++&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">currentIP&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IPNet&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Contains&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">currentIP&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">currentIP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="benchmark-results">Benchmark Results&lt;/h1>
+&lt;p>For the purpose of performance evaluation, we have chosen IPv6 as the IP version, specifically utilizing a CIDR of &lt;strong>2001:db8:1::/100&lt;/strong>. This CIDR encompasses a total of &lt;strong>268.435.456&lt;/strong> hosts, ensuring a substantial amount of data for a reliable assessment of performance.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Function Name&lt;/th>
+&lt;th>Execution Count&lt;/th>
+&lt;th>Avg Execution Time&lt;/th>
+&lt;th>Memory Allocation&lt;/th>
+&lt;th>Memory Allocation per Operation&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>GenerateIPListFromCIDRString&lt;/td>
+&lt;td>1&lt;/td>
+&lt;td>139.9 seconds&lt;/td>
+&lt;td>47.5 GB&lt;/td>
+&lt;td>268.4 million&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Iterator_Next&lt;/td>
+&lt;td>1&lt;/td>
+&lt;td>53.8 seconds&lt;/td>
+&lt;td>4.3 GB&lt;/td>
+&lt;td>268.4 million&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Iterator_Next2&lt;/td>
+&lt;td>1&lt;/td>
+&lt;td>43.9 seconds&lt;/td>
+&lt;td>6.4 GB&lt;/td>
+&lt;td>268.4 million&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="execution-time">Execution Time&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Iterator_Next&lt;/strong>: 53.8 seconds&lt;/li>
+&lt;li>&lt;strong>Iterator_Next2&lt;/strong>: 43.9 seconds&lt;/li>
+&lt;li>&lt;strong>GenerateIPListFromCIDRString&lt;/strong>: 139.9 seconds&lt;/li>
+&lt;/ul>
+&lt;p>Based on the execution time, the &lt;strong>Iterator_Next2&lt;/strong> function performed the best, followed by &lt;strong>Iterator_Next&lt;/strong>, while &lt;strong>GenerateIPListFromCIDRString&lt;/strong> had the highest execution time.&lt;/p>
+&lt;h3 id="memory-allocation">Memory Allocation&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Iterator_Next&lt;/strong>: 4.3 GB&lt;/li>
+&lt;li>&lt;strong>Iterator_Next2&lt;/strong>: 6.4 GB&lt;/li>
+&lt;li>&lt;strong>GenerateIPListFromCIDRString&lt;/strong>: 47.5 GB&lt;/li>
+&lt;/ul>
+&lt;p>In terms of memory allocation, the &lt;strong>Iterator_Next&lt;/strong> function had the lowest memory allocation, followed by &lt;strong>Iterator_Next2&lt;/strong>, whereas &lt;strong>GenerateIPListFromCIDRString&lt;/strong> had the highest memory allocation.&lt;/p>
+&lt;h3 id="memory-allocation-per-operation">Memory Allocation per Operation&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Iterator_Next&lt;/strong>: 268.4 million&lt;/li>
+&lt;li>&lt;strong>Iterator_Next2&lt;/strong>: 268.4 million&lt;/li>
+&lt;li>&lt;strong>GenerateIPListFromCIDRString&lt;/strong>: 268.4 million&lt;/li>
+&lt;/ul>
+&lt;p>The number of memory allocations per operation remained consistent for all benchmarks, with each function performing approximately 268.4 million allocations per operation.&lt;/p>
+&lt;h3 id="memory-usage">Memory Usage&lt;/h3>
+&lt;p>We observed significant differences in memory usage between the &lt;code>GenerateIPListFromCIDR&lt;/code> function and the &lt;code>HostsIterator&lt;/code>. The &lt;code>GenerateIPListFromCIDR&lt;/code> function exhibited high memory usage, consuming approximately &lt;strong>44.26 GB&lt;/strong> of memory to store the slice of IPv6 hosts. In contrast, the &lt;code>HostsIterator&lt;/code> function demonstrated efficient memory management, utilizing only &lt;strong>3.76 MB&lt;/strong>.&lt;/p>
+&lt;p>This stark contrast highlights the advantage of using the &lt;code>HostsIterator&lt;/code> function over the &lt;code>GenerateIPListFromCIDR&lt;/code> function in terms of memory efficiency. By employing the &lt;code>HostsIterator&lt;/code> approach, we can significantly reduce memory consumption while effectively handling a large range of IPv6 hosts.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>GenerateIPListFromCIDR&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 96;
+flex-basis: 230px"
+>
+&lt;a href="https://fadhilyori.my.id/p/addressing-the-memory-leak-bug-in-my-personal-project-subping/20230705_155722.png" data-size="962x1000">
+&lt;img src="https://fadhilyori.my.id/p/addressing-the-memory-leak-bug-in-my-personal-project-subping/20230705_155722.png"
+width="962"
+height="1000"
+srcset="https://fadhilyori.my.id/p/addressing-the-memory-leak-bug-in-my-personal-project-subping/20230705_155722_hu06fde1e9c02a07f112633a771b85d779_133771_480x0_resize_box_3.png 480w, https://fadhilyori.my.id/p/addressing-the-memory-leak-bug-in-my-personal-project-subping/20230705_155722_hu06fde1e9c02a07f112633a771b85d779_133771_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Before optimization">
+&lt;/a>
+&lt;figcaption>Before optimization&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Iterator&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 95;
+flex-basis: 228px"
+>
+&lt;a href="https://fadhilyori.my.id/p/addressing-the-memory-leak-bug-in-my-personal-project-subping/20230705_155739.png" data-size="954x1000">
+&lt;img src="https://fadhilyori.my.id/p/addressing-the-memory-leak-bug-in-my-personal-project-subping/20230705_155739.png"
+width="954"
+height="1000"
+srcset="https://fadhilyori.my.id/p/addressing-the-memory-leak-bug-in-my-personal-project-subping/20230705_155739_hue6e559f8f25b9c94abcf3a4eca8cbd38_121372_480x0_resize_box_3.png 480w, https://fadhilyori.my.id/p/addressing-the-memory-leak-bug-in-my-personal-project-subping/20230705_155739_hue6e559f8f25b9c94abcf3a4eca8cbd38_121372_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="After Optimization">
+&lt;/a>
+&lt;figcaption>After Optimization&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Based on the benchmark results, the &lt;code>Iterator_Next2&lt;/code> function performed the best in terms of execution time, while &lt;code>Iterator_Next&lt;/code> had the lowest memory allocation. This highlights the advantages of optimizing memory usage by using appropriate data structures and algorithms, leading to efficient resource utilization within the network package.&lt;/p>
+&lt;p>It is important to note that the benchmark results do not directly address the effectiveness of the Iterator design pattern in resolving the memory leak problem. To determine if implementing the Iterator design pattern can solve the issue, further analysis of the code implementation and a detailed understanding of the specific nature of the memory leak would be required.&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;p>&lt;a class="link" href="https://en.wikipedia.org/wiki/IPv6_address" target="_blank" rel="noopener"
+>IPv6 address&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://refactoring.guru/design-patterns/iterator" target="_blank" rel="noopener"
+>Iterator&lt;/a>&lt;/p></description></item><item><title>Cara Menggunakan Mirror Buaya di Ubuntu</title><link>https://fadhilyori.my.id/p/cara-menggunakan-mirror-buaya-di-ubuntu/</link><pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate><guid>https://fadhilyori.my.id/p/cara-menggunakan-mirror-buaya-di-ubuntu/</guid><description>&lt;img src="https://fadhilyori.my.id/p/cara-menggunakan-mirror-buaya-di-ubuntu/buaya.klas.or.id-cover.png" alt="Featured image of post Cara Menggunakan Mirror Buaya di Ubuntu" />&lt;h2 id="apa-itu-buaya-klas">Apa itu Buaya KLAS?&lt;/h2>
 &lt;p>Buaya KLAS merupakan mirror Linux gratis yang dirawat oleh teman-teman KLAS (Kelompok Linux Arek Suroboyo) dimana server ini berada di daerah Kota Surabaya, Indonesia. Saat ini ada 6 distribusi Linux yang ada di Buaya, yaitu:&lt;/p>
 &lt;ul>
 &lt;li>&lt;a class="link" href="https://buaya.klas.or.id/ubuntu" target="_blank" rel="noopener"
@@ -67,8 +319,8 @@ alt="Gambar 2 - Tampilan daftar server">
 &lt;li>
 &lt;p>Ganti semua URL bawaan ke URL Buaya KLAS &lt;code>https://buaya.klas.or.id/ubuntu/&lt;/code>&lt;/p>
 &lt;p>Example :
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">deb https://buaya.klas.or.id/ubuntu/ focal main
-deb-src https://buaya.klas.or.id/ubuntu/ focal main &lt;/code>&lt;/pre>&lt;/div>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">deb https://buaya.klas.or.id/ubuntu/ focal main
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb-src https://buaya.klas.or.id/ubuntu/ focal main &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Simpan perubahan&lt;/p>
