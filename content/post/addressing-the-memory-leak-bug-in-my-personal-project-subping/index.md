@@ -23,7 +23,7 @@ image = "cover.jpg"
 > **Project**: [https://github.com/fadhilyori/subping](https://github.com/fadhilyori/subping)  
 > **Related Issue**: [https://github.com/fadhilyori/subping/issues/23](https://github.com/fadhilyori/subping/issues/23)
 
-# Background
+## Background
 
 During the development process of [subping](https://github.com/fadhilyori/subping), our team encountered a critical issue involving a memory leak that specifically occurs when handling a substantial number of [IPv6](https://en.wikipedia.org/wiki/IPv6_address) hosts. This memory leak has a negative impact on the application's performance and raises concerns regarding its stability and scalability.
 
@@ -33,7 +33,7 @@ To gain further insights and effectively address this issue, we have initiated a
 
 Our ultimate goal is to ensure a stable and efficient solution for handling IPv6 hosts within the subping application.
 
-# Main Problem
+## Main Problem
 
 The following code snippet demonstrates a function called **GenerateIPListFromCIDR** that generates a list of IP addresses within a specified range using CIDR notation. However, careful examination reveals a memory leak in the implementation, which can lead to inefficient memory usage over time.
 
@@ -73,7 +73,7 @@ The memory leak in this code arises due to a combination of factors. Firstly, ea
 
 Furthermore, the original implementation includes the line `append([]net.IP{}, ips...)` at the end of the function, which creates a new slice and copies all IP addresses from the `ips` slice. This duplication further exacerbates the memory usage issue.
 
-# The Solution: Utilizing the Iterator Design Pattern
+## The Solution: Utilizing the Iterator Design Pattern
 
 To address the memory leak issue and optimize the code, we have utilized the Iterator design pattern. This pattern enables us to encapsulate the iteration logic and provide a consistent interface for traversing individual host IP addresses within the specified CIDR range.
 
@@ -85,11 +85,11 @@ To ensure an organized codebase, we suggest placing the `HostsIterator` struct a
 
 By leveraging the power of the Iterator design pattern, we enhance the clarity and maintainability of our code. Clients can now seamlessly iterate over host IP addresses within a CIDR range using a consistent and intuitive interface.
 
-## The Iterator Design Pattern
+### The Iterator Design Pattern
 
 The Iterator design pattern is a behavioral design pattern that provides a way to access elements of an aggregate object sequentially without exposing its underlying representation. It separates the traversal behavior from the aggregate object, allowing clients to access elements in a consistent manner without knowing the internal structure of the object.
 
-### Key Participants
+#### Key Participants
 
 The Iterator design pattern typically involves the following key participants:
 
@@ -98,7 +98,7 @@ The Iterator design pattern typically involves the following key participants:
 - **Aggregate**: Defines the interface for creating an Iterator object.
 - **Concrete Aggregate**: Implements the Aggregate interface and returns a ConcreteIterator that traverses the collection.
 
-### Benefits of the Iterator Design Pattern
+#### Benefits of the Iterator Design Pattern
 
 The Iterator design pattern offers several benefits, including:
 
@@ -107,7 +107,7 @@ The Iterator design pattern offers several benefits, including:
 - **Flexibility**: It allows for multiple iterators to coexist and iterate over the same collection independently.
 - **Consistency**: Provides a unified interface for iterating over elements, regardless of the specific collection implementation.
 
-### Graph Representation
+#### Graph Representation
 
 The following graph illustrates the structure of the Iterator design pattern:
 
@@ -204,7 +204,7 @@ func (n *HostsIterator) Next2() *net.IP {
 }
 ```
 
-# Benchmark Results
+## Benchmark Results
 
 For the purpose of performance evaluation, we have chosen IPv6 as the IP version, specifically utilizing a CIDR of **2001:db8:1::/100**. This CIDR encompasses a total of **268.435.456** hosts, ensuring a substantial amount of data for a reliable assessment of performance.
 
