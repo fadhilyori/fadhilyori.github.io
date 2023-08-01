@@ -1,5 +1,6 @@
-// Wait for the DOM to be fully loaded
+
 document.addEventListener('DOMContentLoaded', function () {
+    // Rest of your code remains unchanged
     // Event listener for file input change
     const fileInput = document.getElementById('fileInput');
     const qualitySlider = document.getElementById('qualitySlider');
@@ -7,13 +8,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const maxWidthInput = document.getElementById('maxWidthInput');
     const maxHeightInput = document.getElementById('maxHeightInput');
 
-
     fileInput.value = '';
     qualitySlider.value = 0.9;
-    qualityValue.textContent = '90%';
+    qualityValue.value = 0.9;
     maxWidthInput.value = '';
     maxHeightInput.value = '';
-    
+
     document.getElementById('fileInput').addEventListener('change', function (event) {
         const file = event.target.files[0];
 
@@ -23,17 +23,26 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        handleImageDetails(file);
+        handleImageDetails(file, true);
+
+        // Show source image size
+        const sourceImageSize = document.getElementById('sourceImageSize');
+        sourceImageSize.textContent = formatSize(file.size);
     });
 
     // Event listener for quality slider change
     qualitySlider.addEventListener('change', function () {
-        qualityValue.textContent = `${(qualitySlider.value * 100).toFixed(0)}%`;
-        const maxWidthInput = document.getElementById('maxWidthInput');
-        const maxHeightInput = document.getElementById('maxHeightInput');
+        qualityValue.value = qualitySlider.value;
         const file = document.getElementById('fileInput').files[0];
         if (file) {
-            compressAndDisplayImage(file, qualitySlider.value, maxWidthInput.value, maxHeightInput.value);
+            handleImageDetails(file);
+        }
+    });
+    qualityValue.addEventListener("input", function () {
+        qualitySlider.value = qualityValue.value;
+        const file = document.getElementById('fileInput').files[0];
+        if (file) {
+            handleImageDetails(file);
         }
     });
 
@@ -42,122 +51,79 @@ document.addEventListener('DOMContentLoaded', function () {
         input.addEventListener('change', function () {
             const file = document.getElementById('fileInput').files[0];
             if (file) {
-                compressAndDisplayImage(file, qualitySlider.value, maxWidthInput.value, maxHeightInput.value);
+                handleImageDetails(file);
             }
         });
     });
-});
 
+    // Utility function to format file size
+    function formatSize(sizeInBytes) {
+        const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+        const i = parseInt(Math.floor(Math.log(sizeInBytes) / Math.log(1024)));
+        return (sizeInBytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+    }
 
-// Utility function to format file size
-function formatSize(sizeInBytes) {
-    const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-    const i = parseInt(Math.floor(Math.log(sizeInBytes) / Math.log(1024)));
-    return (sizeInBytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
-}
+    // Function to handle image preview and other image details
+    async function handleImageDetails(file, init = false) {
+        const imageDataURL = await readFileAsDataURL(file);
+        const image = await IJS.Image.load(imageDataURL);
 
-// Function to handle image preview and other image details
-function handleImageDetails(file) {
-    const reader = new FileReader();
-    reader.onload = function () {
-        const image = new Image();
-        image.src = reader.result;
-
-        image.onload = function () {
-            const maxWidthInput = document.getElementById('maxWidthInput');
-            const maxHeightInput = document.getElementById('maxHeightInput');
-            const sourceImageResolution = document.getElementById('sourceImageResolution');
-            const sourceImagePreview = document.getElementById('sourceImagePreview');
-
-            // Set image details
+        // Set image details
+        if (init) {
             maxWidthInput.value = image.width;
             maxHeightInput.value = image.height;
             sourceImageResolution.textContent = `${image.width}x${image.height}`;
+        }
 
-            // Show image preview
-            sourceImagePreview.src = reader.result;
-            sourceImagePreview.classList.remove('d-none');
+        // Show image preview
+        sourceImagePreview.src = imageDataURL;
+        sourceImagePreview.classList.remove('d-none');
 
-            // Compress and display the image
-            compressAndDisplayImage(file, qualitySlider.value, maxWidthInput.value, maxHeightInput.value);
-        };
+        // Compress and display the image
+        compressAndDisplayImage(image, qualitySlider.value, maxWidthInput.value, maxHeightInput.value);
+    }
 
-        // Show source image size
-        const sourceImageSize = document.getElementById('sourceImageSize');
-        sourceImageSize.textContent = formatSize(file.size);
-    };
-    reader.readAsDataURL(file);
-}
+    // Compress and display the image
+    async function compressAndDisplayImage(image, quality = 0.9, maxWidth = 800, maxHeight = 800) {
+        // Calculate new image dimensions to fit maxWidth and maxHeight
+        const widthRatio = maxWidth / image.width;
+        const heightRatio = maxHeight / image.height;
+        const ratio = Math.min(widthRatio, heightRatio);
+        const newWidth = image.width * ratio;
+        const newHeight = image.height * ratio;
 
-// Compress and display the image
-function compressAndDisplayImage(file, quality = 0.9, maxWidth = 800, maxHeight = 800) {
-    const reader = new FileReader();
-    reader.onload = function () {
-        const image = new Image();
-        image.src = reader.result;
+        const compressedImage = await image.resize({ width: newWidth, height: newHeight });
+        const compressedImageBlob = await compressedImage.toBlob('image/jpeg', quality.toString());
 
-        image.onload = function () {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
+        const compressedImageDataURL = await readFileAsDataURL(compressedImageBlob);
+        const resultImagePreview = document.getElementById('resultImagePreview');
+        resultImagePreview.src = compressedImageDataURL;
+        resultImagePreview.classList.remove('d-none');
 
-            let newWidth = image.width;
-            let newHeight = image.height;
+        // Display the result image resolution
+        const resultImage = await IJS.Image.load(compressedImageDataURL);
+        const resultImageResolution = document.getElementById('resultImageResolution');
+        resultImageResolution.textContent = `${resultImage.width}x${resultImage.height}`;
 
-            // Calculate new image dimensions to fit maxWidth and maxHeight
-            if (newWidth > maxWidth || newHeight > maxHeight) {
-                const widthRatio = maxWidth / newWidth;
-                const heightRatio = maxHeight / newHeight;
-                const ratio = Math.min(widthRatio, heightRatio);
-                newWidth *= ratio;
-                newHeight *= ratio;
-            }
+        // Calculate and display the result image size
+        const resultImageSize = document.getElementById('resultImageSize');
+        resultImageSize.textContent = formatSize(compressedImageBlob.size);
 
-            canvas.width = newWidth;
-            canvas.height = newHeight;
+        // Show the download button
+        const downloadButton = document.getElementById('downloadButton');
+        downloadButton.classList.remove('d-none');
 
-            context.drawImage(image, 0, 0, newWidth, newHeight);
+        // Set the download link to the compressed image data URL
+        downloadButton.href = compressedImageDataURL;
+    }
 
-            canvas.toBlob(function (result) {
-                const compressedImageURL = URL.createObjectURL(result);
-                const resultImagePreview = document.getElementById('resultImagePreview');
-                resultImagePreview.src = compressedImageURL;
-                resultImagePreview.classList.remove('d-none');
+    // Utility function to read file as data URL
+    function readFileAsDataURL(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.readAsDataURL(file);
+        });
+    }
 
-                // Display the result image resolution
-                const image2 = new Image();
-                const reader2 = new FileReader();
-                reader2.onload = function () {
-                    image2.src = reader2.result;
-                    image2.onload = function () {
-                        const resultImageResolution = document.getElementById('resultImageResolution');
-                        resultImageResolution.textContent = `${image2.width}x${image2.height}`;
-                    };
-                };
-                reader2.readAsDataURL(result);
-
-                // Calculate and display the result image size
-                resultBlobToDataURL(result, function (dataURL) {
-                    const resultImageSize = document.getElementById('resultImageSize');
-                    resultImageSize.textContent = formatSize(dataURL.length);
-
-                    // Show the download button
-                    const downloadButton = document.getElementById('downloadButton');
-                    downloadButton.classList.remove('d-none');
-
-                    // Set the download link to the compressed image data URL
-                    downloadButton.href = dataURL;
-                });
-            }, file.type, quality);
-        };
-    };
-    reader.readAsDataURL(file);
-}
-
-
-function resultBlobToDataURL(result, callback) {
-    const reader = new FileReader();
-    reader.onloadend = function () {
-        callback(reader.result);
-    };
-    reader.readAsDataURL(result);
-}
+});

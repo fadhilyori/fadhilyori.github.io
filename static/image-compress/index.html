@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Image Compression Web Service</title>
+    <title>Image Resize & Compression Service</title>
     <!-- Add Bootstrap CSS link here (you can use a CDN or host it locally) -->
     <link
       rel="stylesheet"
@@ -33,8 +33,8 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col">
-          <h2 class="text-center mb-4">Image Resize and Compression Service</h2>
-          <p class="text-center">This service allows you to compress images directly in your browser without the need to upload them to any server. It's fast, secure, and completely free to use.</p>
+          <h2 class="text-center mb-4">Image Resize & Compression Service</h2>
+          <p class="text-center">This service allows you to compress images directly in your browser without the need to <strong>upload them to any server</strong>. It's <strong>fast, secure, and completely free to use</strong>.</p>
           <p class="text-center">If you have any questions or need further assistance, feel free to contact me via my website at <a href="https://fadhilyori.my.id/about/">https://fadhilyori.my.id/about/</a></p>
           <div class="row">
             <div class="col mb-3">
@@ -42,7 +42,7 @@
               <input type="file" class="form-control" id="fileInput" accept="image/*" />
             </div>
             <div class="col mb-3">
-              <label for="qualitySlider" class="form-label fw-bold">Quality: <span id="qualityValue">90%</span></label>
+              <label for="qualitySlider" class="form-label fw-bold">Quality: <input id="qualityValue" min="0" max="1" step="0.1" type="number" value="90"></label>
               <input type="range" class="form-range" id="qualitySlider" min="0" max="1" step="0.01" value="0.9" />
             </div>
           </div>
@@ -58,7 +58,14 @@
           </div>
           <div class="row">
             <div class="col mb-3">
-              <label class="form-label fw-bold">Source Image Preview:</label>
+                <label class="form-label fw-bold">Source Image Preview:</label>
+            </div>
+            <div class="col mb-3">
+                <label class="form-label fw-bold">Result Image Preview:</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-3">
               <img src="" id="sourceImagePreview" class="img-fluid d-none" alt="Source Preview" />
               <div class="mb-2">
                 <strong>Source Image Size:</strong>
@@ -70,7 +77,6 @@
               </div>
             </div>
             <div class="col mb-3">
-              <label class="form-label fw-bold">Result Image Preview:</label>
               <img src="" id="resultImagePreview" class="img-fluid d-none" alt="Result Preview" />
               <div class="mb-2">
                 <strong>Result Image Size:</strong>
@@ -91,7 +97,7 @@
 
     <!-- Add Bootstrap and app.js scripts here (you can use a CDN or host them locally) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.0.5/compressor.js"></script>
+    <script src="https://www.lactame.com/lib/image-js/0.21.2/image.min.js"></script>
     <script src="/image-compress/app.js"></script>
   </body>
 </html>
