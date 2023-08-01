@@ -8,48 +8,56 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
     />
     <style>
-      /* Adjust image preview styling for side-by-side display */
-      #sourceImagePreview,
-      #resultImagePreview {
-        max-width: 100%;
-        height: auto;
-      }
-
-      /* Add some spacing between the previews */
-      .mb-2 {
-        margin-bottom: 10px;
-      }
-    </style>
+        /* Adjust image preview styling for side-by-side display */
+        #sourceImagePreview,
+        #resultImagePreview {
+          max-width: 100%;
+          height: auto;
+        }
+    
+        /* Add some spacing between the previews */
+        .mb-2 {
+          margin-bottom: 10px;
+        }
+    
+        /* Responsive adjustments */
+        @media (max-width: 767px) {
+          .col-12 {
+            padding-left: 15px;
+            padding-right: 15px;
+          }
+        }
+      </style>
   </head>
   <body>
     <div class="container mt-5">
       <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col">
           <h2 class="text-center mb-4">Image Resize and Compression Service</h2>
-          <p>This service allows you to compress images directly in your browser without the need to upload them to any server. It's fast, secure, and completely free to use.</p>
-          <p>If you have any questions or need further assistance, feel free to contact me via my website at <a href="https://fadhilyori.my.id/about/">https://fadhilyori.my.id/about/</a></p>
+          <p class="text-center">This service allows you to compress images directly in your browser without the need to upload them to any server. It's fast, secure, and completely free to use.</p>
+          <p class="text-center">If you have any questions or need further assistance, feel free to contact me via my website at <a href="https://fadhilyori.my.id/about/">https://fadhilyori.my.id/about/</a></p>
           <div class="row">
-            <div class="col-md-6 mb-3">
+            <div class="col mb-3">
               <label for="fileInput" class="form-label fw-bold">Select an image to compress:</label>
               <input type="file" class="form-control" id="fileInput" accept="image/*" />
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="col mb-3">
               <label for="qualitySlider" class="form-label fw-bold">Quality: <span id="qualityValue">90%</span></label>
               <input type="range" class="form-range" id="qualitySlider" min="0" max="1" step="0.01" value="0.9" />
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 mb-3">
+            <div class="col mb-3">
               <label for="maxWidthInput" class="form-label fw-bold">Max Width:</label>
               <input type="number" class="form-control" id="maxWidthInput" />
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="col mb-3">
                 <label for="maxHeightInput" class="form-label fw-bold">Max Height:</label>
                 <input type="number" class="form-control" id="maxHeightInput" />
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 mb-3">
+            <div class="col mb-3">
               <label class="form-label fw-bold">Source Image Preview:</label>
               <img src="" id="sourceImagePreview" class="img-fluid d-none" alt="Source Preview" />
               <div class="mb-2">
@@ -61,7 +69,7 @@
                 <span id="sourceImageResolution">-</span>
               </div>
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="col mb-3">
               <label class="form-label fw-bold">Result Image Preview:</label>
               <img src="" id="resultImagePreview" class="img-fluid d-none" alt="Result Preview" />
               <div class="mb-2">
