@@ -3,14 +3,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Rest of your code remains unchanged
     // Event listener for file input change
     const fileInput = document.getElementById('fileInput');
-    const qualitySlider = document.getElementById('qualitySlider');
     const qualityValue = document.getElementById('qualityValue');
     const maxWidthInput = document.getElementById('maxWidthInput');
     const maxHeightInput = document.getElementById('maxHeightInput');
+    const resultImageSize = document.getElementById('resultImageSize');
+    const resultImagePreview = document.getElementById('resultImagePreview');
+    const sourceImageResolution = document.getElementById('sourceImageResolution');
+    const resultImageResolution = document.getElementById('resultImageResolution');
 
     fileInput.value = '';
-    qualitySlider.value = 0.9;
-    qualityValue.value = 0.9;
     maxWidthInput.value = '';
     maxHeightInput.value = '';
 
@@ -30,16 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
         sourceImageSize.textContent = formatSize(file.size);
     });
 
-    // Event listener for quality slider change
-    qualitySlider.addEventListener('change', function () {
-        qualityValue.value = qualitySlider.value;
-        const file = document.getElementById('fileInput').files[0];
-        if (file) {
-            handleImageDetails(file);
-        }
-    });
-    qualityValue.addEventListener("input", function () {
-        qualitySlider.value = qualityValue.value;
+    // Event listener for quality value change
+    qualityValue.addEventListener("change", function () {
         const file = document.getElementById('fileInput').files[0];
         if (file) {
             handleImageDetails(file);
@@ -80,11 +73,15 @@ document.addEventListener('DOMContentLoaded', function () {
         sourceImagePreview.classList.remove('d-none');
 
         // Compress and display the image
-        compressAndDisplayImage(image, qualitySlider.value, maxWidthInput.value, maxHeightInput.value);
+        compressAndDisplayImage(image, qualityValue.value, maxWidthInput.value, maxHeightInput.value);
     }
 
     // Compress and display the image
     async function compressAndDisplayImage(image, quality = 0.9, maxWidth = 800, maxHeight = 800) {
+        resultImagePreview.src = '';
+        resultImageSize.textContent = '-';
+        resultImageResolution.textContent = '-';
+
         // Calculate new image dimensions to fit maxWidth and maxHeight
         const widthRatio = maxWidth / image.width;
         const heightRatio = maxHeight / image.height;
@@ -93,20 +90,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const newHeight = image.height * ratio;
 
         const compressedImage = await image.resize({ width: newWidth, height: newHeight });
-        const compressedImageBlob = await compressedImage.toBlob('image/jpeg', quality.toString());
+        const compressedImageBlob = await compressedImage.toBlob('image/jpeg', quality);
 
         const compressedImageDataURL = await readFileAsDataURL(compressedImageBlob);
-        const resultImagePreview = document.getElementById('resultImagePreview');
+        
         resultImagePreview.src = compressedImageDataURL;
         resultImagePreview.classList.remove('d-none');
 
         // Display the result image resolution
         const resultImage = await IJS.Image.load(compressedImageDataURL);
-        const resultImageResolution = document.getElementById('resultImageResolution');
         resultImageResolution.textContent = `${resultImage.width}x${resultImage.height}`;
 
         // Calculate and display the result image size
-        const resultImageSize = document.getElementById('resultImageSize');
         resultImageSize.textContent = formatSize(compressedImageBlob.size);
 
         // Show the download button
