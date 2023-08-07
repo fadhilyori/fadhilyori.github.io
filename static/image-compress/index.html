@@ -2,124 +2,105 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGJH0V67XQ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag("js", new Date());
-
-        gtag("config", "G-DGJH0V67XQ");
-    </script>
-    <title>Image Resize & Compression Service</title>
-    <!-- Add Bootstrap CSS link here (you can use a CDN or host it locally) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
-    <style>
-        /* Adjust image preview styling for side-by-side display */
-        #sourceImagePreview,
-        #resultImagePreview {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Add some spacing between the previews */
-        .mb-2 {
-            margin-bottom: 10px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 767px) {
-            .col-12 {
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-        }
-    </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Optimize your images in-browser without uploading to a server. Quick, secure, and totally free." />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGJH0V67XQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-DGJH0V67XQ");
+  </script>
+  <title>Image Resize & Compression Service</title>
+  <!-- Add Bootstrap CSS link here (you can use a CDN or host it locally) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/image-compress/app.css" />
 </head>
 
 <body>
-    <div class="container mt-5">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center mb-4">Resize & Compress Images Instantly!</h1>
+        <p class="text-center">
+          Optimize your images in-browser without uploading to a server.
+          Quick, secure, and totally free.
+        </p>
+        <p class="text-center">
+          Questions? Reach me at
+          <a href="https://fadhilyori.my.id/about/">https://fadhilyori.my.id/about/</a>
+        </p>
         <div class="row">
-            <div class="col">
-                <h1 class="text-center mb-4">Resize & Compress Images Instantly!</h1>
-                <p class="text-center">
-                    Optimize your images in-browser without uploading to a server.
-                    Quick, secure, and totally free.
-                </p>
-                <p class="text-center">
-                    Questions? Reach me at
-                    <a href="https://fadhilyori.my.id/about/">https://fadhilyori.my.id/about/</a>
-                </p>
-                <div class="row">
-                    <div class="col mb-3">
-                        <label for="fileInput" class="form-label fw-bold">Select an image to compress:</label>
-                        <input type="file" class="form-control" id="fileInput" accept="image/*" multiple="false" />
-                    </div>
-                    <div class="col mb-3">
-                        <label for="qualityValue" class="form-label fw-bold">Quality: </label>
-                        <select class="form-control" id="qualityValue" autocomplete="off">
-                            <option selected value="0.9">High</option>
-                            <option value="0.7">Medium</option>
-                            <option value="0.3">Low</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col mb-3">
-                        <label for="maxWidthInput" class="form-label fw-bold">Max Width:</label>
-                        <input type="number" class="form-control" id="maxWidthInput" />
-                    </div>
-                    <div class="col mb-3">
-                        <label for="maxHeightInput" class="form-label fw-bold">Max Height:</label>
-                        <input type="number" class="form-control" id="maxHeightInput" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col mb-3">
-                        <label class="form-label fw-bold">Source Image Preview:</label>
-                    </div>
-                    <div class="col mb-3">
-                        <label class="form-label fw-bold">Result Image Preview:</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col mb-3">
-                        <img src="" id="sourceImagePreview" class="img-fluid d-none" alt="Source Preview" />
-                        <div class="mb-2">
-                            <strong>Size: </strong>
-                            <span id="sourceImageSize">-</span>
-                        </div>
-                        <div class="mb-2">
-                            <strong>Resolution:</strong>
-                            <span id="sourceImageResolution">-</span>
-                        </div>
-                    </div>
-                    <div class="col mb-3">
-                        <img src="" id="resultImagePreview" class="img-fluid d-none" alt="Result Preview" />
-                        <div class="mb-2">
-                            <strong>Size: </strong>
-                            <span id="resultImageSize">-</span>
-                        </div>
-                        <div class="mb-2">
-                            <strong>Resolution: </strong>
-                            <span id="resultImageResolution">-</span>
-                        </div>
-                        <div class="mb-2">
-                            <a href="#" id="downloadButton" class="btn btn-primary d-none"
-                                download="compressed_image.jpg">Download</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div class="col mb-3">
+            <label for="fileInput" class="form-label fw-bold">Select an image to compress:</label>
+            <input type="file" class="form-control" id="fileInput" accept="image/*" multiple="false" />
+          </div>
+          <div class="col mb-3">
+            <label for="qualityValue" class="form-label fw-bold">Quality:
+            </label>
+            <select class="form-control" id="qualityValue" autocomplete="off">
+              <option selected value="0.92">High</option>
+              <option value="0.6">Medium</option>
+              <option value="0.2">Low</option>
+            </select>
+          </div>
         </div>
+        <div class="row">
+          <div class="col mb-3">
+            <label for="maxWidthInput" class="form-label fw-bold">Max Width:</label>
+            <input type="number" class="form-control" id="maxWidthInput" />
+          </div>
+          <div class="col mb-3">
+            <label for="maxHeightInput" class="form-label fw-bold">Max Height:</label>
+            <input type="number" class="form-control" id="maxHeightInput" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mb-3">
+            <label class="form-label fw-bold">Source Image Preview:</label>
+          </div>
+          <div class="col mb-3">
+            <label class="form-label fw-bold">Result Image Preview:</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mb-3">
+            <img src="" id="sourceImagePreview" class="img-fluid d-none" alt="Source Preview" />
+            <div class="mb-2">
+              <strong>Size: </strong>
+              <span id="sourceImageSize">-</span>
+            </div>
+            <div class="mb-2">
+              <strong>Resolution:</strong>
+              <span id="sourceImageResolution">-</span>
+            </div>
+          </div>
+          <div class="col mb-3">
+            <img src="" id="resultImagePreview" class="img-fluid d-none" alt="Result Preview" />
+            <div class="mb-2">
+              <strong>Size: </strong>
+              <span id="resultImageSize">-</span>
+            </div>
+            <div class="mb-2">
+              <strong>Resolution: </strong>
+              <span id="resultImageResolution">-</span>
+            </div>
+            <div class="mb-2">
+              <a href="#" id="downloadButton" class="btn btn-primary d-none"
+                download="compressed_image.jpg">Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Add Bootstrap and app.js scripts here (you can use a CDN or host them locally) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://www.lactame.com/lib/image-js/0.21.2/image.min.js"></script>
-    <script src="/image-compress/app.js?v=1691401598"></script>
+  <!-- Add Bootstrap and app.js scripts here (you can use a CDN or host them locally) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.2.1/dist/compressor.min.js"></script>
+  <script src="/image-compress/app.js"></script>
 </body>
 
 </html>
