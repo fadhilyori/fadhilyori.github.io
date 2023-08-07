@@ -44,16 +44,23 @@
         <div class="row">
             <div class="col">
                 <h1 class="text-center mb-4">Resize & Compress Images Instantly!</h1>
-                <p class="text-center">Optimize your images in-browser without uploading to a server. Quick, secure, and totally free.</p>
-                <p class="text-center">Questions? Reach me at <a href="https://fadhilyori.my.id/about/">https://fadhilyori.my.id/about/</a></p>
+                <p class="text-center">
+                    Optimize your images in-browser without uploading to a server.
+                    Quick, secure, and totally free.
+                </p>
+                <p class="text-center">
+                    Questions? Reach me at
+                    <a href="https://fadhilyori.my.id/about/">https://fadhilyori.my.id/about/</a>
+                </p>
                 <div class="row">
                     <div class="col mb-3">
                         <label for="fileInput" class="form-label fw-bold">Select an image to compress:</label>
-                        <input type="file" class="form-control" id="fileInput" accept="image/*" />
+                        <input type="file" class="form-control" id="fileInput" accept="image/*" multiple="false" />
                     </div>
                     <div class="col mb-3">
                         <label for="qualitySlider" class="form-label fw-bold">Quality:
-                            <input id="qualityValue" min="0" max="1" step="0.1" type="number" value="90" /></label>
+                            <input id="qualityValue" min="0" max="1" step="0.1" type="number" value="90" />
+                        </label>
                         <input type="range" class="form-range" id="qualitySlider" min="0" max="1" step="0.01"
                             value="0.9" />
                     </div>
@@ -80,28 +87,27 @@
                     <div class="col mb-3">
                         <img src="" id="sourceImagePreview" class="img-fluid d-none" alt="Source Preview" />
                         <div class="mb-2">
-                            <strong>Source Image Size:</strong>
+                            <strong>Size: </strong>
                             <span id="sourceImageSize">-</span>
                         </div>
                         <div class="mb-2">
-                            <strong>Source Image Resolution:</strong>
+                            <strong>Resolution:</strong>
                             <span id="sourceImageResolution">-</span>
                         </div>
                     </div>
                     <div class="col mb-3">
                         <img src="" id="resultImagePreview" class="img-fluid d-none" alt="Result Preview" />
                         <div class="mb-2">
-                            <strong>Result Image Size:</strong>
+                            <strong>Size: </strong>
                             <span id="resultImageSize">-</span>
                         </div>
                         <div class="mb-2">
-                            <strong>Result Image Resolution:</strong>
+                            <strong>Resolution: </strong>
                             <span id="resultImageResolution">-</span>
                         </div>
                         <div class="mb-2">
                             <a href="#" id="downloadButton" class="btn btn-primary d-none"
-                                download="compressed_image.jpg">Download
-                                Compressed Image</a>
+                                download="compressed_image.jpg">Download</a>
                         </div>
                     </div>
                 </div>
