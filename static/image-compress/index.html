@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="auto">
 
 <head>
+  <meta name="color-scheme" content="dark light">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
     content="Optimize your images in-browser without uploading to a server. Quick, secure, and totally free." />
@@ -9,13 +10,14 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGJH0V67XQ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() {dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag("js", new Date());
     gtag("config", "G-DGJH0V67XQ");
   </script>
   <title>Image Resize & Compression Service</title>
   <!-- Add Bootstrap CSS link here (you can use a CDN or host it locally) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <link rel="stylesheet" href="/image-compress/app.css?v=1691416725" />
 </head>
 
@@ -88,8 +90,7 @@
               <span id="resultImageResolution">-</span>
             </div>
             <div class="mb-2">
-              <a href="#" id="downloadButton" class="btn btn-primary d-none"
-                download="compressed_image">Download</a>
+              <a href="#" id="downloadButton" class="btn btn-primary d-none" download="compressed_image">Download</a>
             </div>
           </div>
         </div>
@@ -98,8 +99,11 @@
   </div>
 
   <!-- Add Bootstrap and app.js scripts here (you can use a CDN or host them locally) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.2.1/dist/compressor.min.js" integrity="sha256-/RtAoYCPtJAbsz8JBTBa8uQ1RCraevx0+BsKlvAkLwM=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.2.1/dist/compressor.min.js"
+    integrity="sha256-/RtAoYCPtJAbsz8JBTBa8uQ1RCraevx0+BsKlvAkLwM=" crossorigin="anonymous"></script>
   <script src="/image-compress/app.js?v=1691416725"></script>
 </body>
 
