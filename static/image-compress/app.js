@@ -63,15 +63,20 @@ document.addEventListener('DOMContentLoaded', function () {
             qualityNumber = 0.92;
         }
 
-        sourceImagePreview.onload = () => {
-            // Set image details
-            maxWidthInput.value = sourceImagePreview.width;
-            maxHeightInput.value = sourceImagePreview.height;
-            sourceImageResolution.textContent = `${sourceImagePreview.width}x${sourceImagePreview.height}`;
+        // Set image details
+        if (init) {
+            const srcImage = await getImageDimension(imageDataURL);
 
+            maxWidthInput.value = srcImage.width;
+            maxHeightInput.value = srcImage.height;
+            sourceImageResolution.textContent = `${srcImage.width}x${srcImage.height}`;
+        }
+
+        sourceImagePreview.onload = () => {
             // Compress and display the image
             compressAndDisplayImage(imageDataURL, sourceImagePreview.width, sourceImagePreview.height, sourceImageType, qualityNumber, maxWidthInput.value, maxHeightInput.value);
         }
+
         sourceImagePreview.src = imageDataURL;
         sourceImagePreview.classList.remove('d-none');
     }
@@ -94,13 +99,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const compressedImage = await compressImage(imageBlob, { quality: quality, mimeType: mimetype, maxWidth: newWidth, maxHeight: newHeight });
         const resultImageDataURL = await readFileAsDataURL(compressedImage);
 
+        const rImage = await getImageDimension(resultImageDataURL);
+        resultImageResolution.textContent = `${rImage.width}x${rImage.height}`;
+
         resultImagePreview.src = resultImageDataURL;
         resultImagePreview.classList.remove('d-none');
-
-        // Display the result image resolution
-        resultImagePreview.onload = () => {
-            resultImageResolution.textContent = `${resultImagePreview.width}x${resultImagePreview.height}`;
-        }
 
         // Calculate and display the result image size
         resultImageSize.textContent = formatSize(compressedImage.size);
@@ -141,6 +144,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     reject(err);
                 }
             });
+        });
+    }
+
+    function getImageDimension(url) {
+        return new Promise((resolve, reject) => {
+            let img = new Image();
+
+            img.onload = function () {
+                resolve({ height: img.height, width: img.width });
+            }
+
+            img.onerror = function () {
+                reject(new Error('Failed to load image'));
+            }
+
+            img.src = url;
         });
     }
 
