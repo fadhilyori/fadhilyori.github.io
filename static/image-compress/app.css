@@ -31,9 +31,3 @@ body {
     background-color: var(--bg);
     color: var(--text);
 }
-
-#resultImagePreview,
-#sourceImagePreview {
-    max-width: 100%;
-    height: auto
-}

@@ -15,16 +15,15 @@
     gtag("config", "G-DGJH0V67XQ");
   </script>
   <title>Image Resize & Compression Service</title>
-  <!-- Add Bootstrap CSS link here (you can use a CDN or host it locally) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-  <link rel="stylesheet" href="/image-compress/app.css?v=1691504377" />
+  <link rel="stylesheet" href="/image-compress/app.css?v=1691564188" />
 </head>
 
 <body>
   <div class="container mt-5">
     <div class="row">
-      <div class="col">
+      <div class="col-12">
         <h1 class="text-center mb-4">Resize & Compress Images Instantly!</h1>
         <p class="text-center">
           Optimize your images in-browser without uploading to a server.
@@ -34,77 +33,65 @@
           Questions? Reach me at
           <a href="https://fadhilyori.my.id/about/">https://fadhilyori.my.id/about/</a>
         </p>
-        <div class="row">
-          <div class="col mb-3">
-            <label for="fileInput" class="form-label fw-bold">Select an image to compress:</label>
-            <input type="file" class="form-control" id="fileInput" accept="image/*" multiple="false" />
-          </div>
-          <div class="col mb-3">
-            <label for="qualityValue" class="form-label fw-bold">Quality:
-            </label>
-            <select class="form-control" id="qualityValue" autocomplete="off">
-              <option selected value="0.92">High</option>
-              <option value="0.6">Medium</option>
-              <option value="0.2">Low</option>
-            </select>
-          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-12 mb-4">
+        <label for="fileInput" class="form-label fw-bold">Select an image to compress:</label>
+        <input type="file" class="form-control" id="fileInput" accept="image/*" multiple="false" />
+      </div>
+      <div class="col-lg-6 col-12 mb-4">
+        <label for="qualityValue" class="form-label fw-bold">Quality: </label>
+        <select class="form-control" id="qualityValue" autocomplete="off">
+          <option selected value="0.92">High</option>
+          <option value="0.6">Medium</option>
+          <option value="0.2">Low</option>
+        </select>
+      </div>
+      <div class="col-lg-6 col-12 mb-4">
+        <label for="maxWidthInput" class="form-label fw-bold">Max Width:</label>
+        <input type="number" class="form-control" id="maxWidthInput" />
+      </div>
+      <div class="col-lg-6 col-12">
+        <label for="maxHeightInput" class="form-label fw-bold">Max Height:</label>
+        <input type="number" class="form-control" id="maxHeightInput" />
+      </div>
+      <div class="col-lg-6 col-12 mb-4">
+        <label class="form-label fw-bold">Image result:</label>
+        <div class="cocoen">
+          <img src="" id="sourceImagePreview" class="d-none" alt="Before">
+          <img src="" id="resultImagePreview" class="d-none" alt="After">
         </div>
-        <div class="row">
-          <div class="col mb-3">
-            <label for="maxWidthInput" class="form-label fw-bold">Max Width:</label>
-            <input type="number" class="form-control" id="maxWidthInput" />
-          </div>
-          <div class="col mb-3">
-            <label for="maxHeightInput" class="form-label fw-bold">Max Height:</label>
-            <input type="number" class="form-control" id="maxHeightInput" />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col mb-3">
-            <label class="form-label fw-bold">Source Image Preview:</label>
-          </div>
-          <div class="col mb-3">
-            <label class="form-label fw-bold">Result Image Preview:</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col mb-3">
-            <img src="" id="sourceImagePreview" class="img-fluid d-none" alt="Source Preview" />
-            <div class="mb-2">
-              <strong>Size: </strong>
-              <span id="sourceImageSize">-</span>
-            </div>
-            <div class="mb-2">
-              <strong>Resolution:</strong>
-              <span id="sourceImageResolution">-</span>
-            </div>
-          </div>
-          <div class="col mb-3">
-            <img src="" id="resultImagePreview" class="img-fluid d-none" alt="Result Preview" />
-            <div class="mb-2">
-              <strong>Size: </strong>
-              <span id="resultImageSize">-</span>
-            </div>
-            <div class="mb-2">
-              <strong>Resolution: </strong>
-              <span id="resultImageResolution">-</span>
-            </div>
-            <div class="mb-2">
-              <a href="#" id="downloadButton" class="btn btn-primary d-none" download="compressed_image">Download</a>
-            </div>
-          </div>
-        </div>
+      </div>
+      <div class="col-lg-6 col-12 pt-4">
+        <p>
+          <strong>Original Resolution:</strong>
+          <span id="sourceImageResolution">-</span>
+        </p>
+        <p>
+          <strong>Original Size: </strong>
+          <span id="sourceImageSize">-</span>
+        </p>
+        <p>
+          <strong>Result Resolution: </strong>
+          <span id="resultImageResolution">-</span>
+        </p>
+        <p>
+          <strong>Result Size: </strong>
+          <span id="resultImageSize">-</span>
+        </p>
+        <a href="#" id="downloadButton" class="btn btn-primary d-none" download="compressed_image">Download</a>
       </div>
     </div>
   </div>
 
-  <!-- Add Bootstrap and app.js scripts here (you can use a CDN or host them locally) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
     integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.2.1/dist/compressor.min.js"
     integrity="sha256-/RtAoYCPtJAbsz8JBTBa8uQ1RCraevx0+BsKlvAkLwM=" crossorigin="anonymous"></script>
-  <script src="/image-compress/app.js?v=1691504377"></script>
+  <script src="https://unpkg.com/cocoen/dist/cocoen.js"></script>
+  <script src="/image-compress/app.js?v=1691564188"></script>
 </body>
 
 </html>

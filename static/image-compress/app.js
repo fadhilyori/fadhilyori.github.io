@@ -9,48 +9,42 @@ if (htmlElement.getAttribute("data-bs-theme") === 'auto') {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    Cocoen.create(document.querySelector('.cocoen'));
+
     const fileInput = document.getElementById('fileInput');
     const qualityValue = document.getElementById('qualityValue');
     const maxWidthInput = document.getElementById('maxWidthInput');
     const maxHeightInput = document.getElementById('maxHeightInput');
+    const downloadButton = document.getElementById('downloadButton');
+    const sourceImageSize = document.getElementById('sourceImageSize');
     const resultImageSize = document.getElementById('resultImageSize');
     const sourceImagePreview = document.getElementById('sourceImagePreview');
     const resultImagePreview = document.getElementById('resultImagePreview');
     const sourceImageResolution = document.getElementById('sourceImageResolution');
     const resultImageResolution = document.getElementById('resultImageResolution');
 
-    fileInput.value = '';
-    maxWidthInput.value = '';
-    maxHeightInput.value = '';
+    clearAllInputs();
 
-    document.getElementById('fileInput').addEventListener('change', function (event) {
+    fileInput.addEventListener('change', function (event) {
         const file = event.target.files[0];
 
         // Check if a file is selected
         if (!file) {
             alert('Please select an image file.');
+            clearAllInputs();
             return;
         }
 
         handleImageDetails(file, true);
 
         // Show source image size
-        const sourceImageSize = document.getElementById('sourceImageSize');
         sourceImageSize.textContent = formatSize(file.size);
     });
 
-    // Event listener for quality value change
-    qualityValue.addEventListener("change", function () {
-        const file = document.getElementById('fileInput').files[0];
-        if (file) {
-            handleImageDetails(file);
-        }
-    });
-
     // Event listeners for maxWidth and maxHeight inputs change
-    [maxWidthInput, maxHeightInput].forEach((input) => {
+    [qualityValue, maxWidthInput, maxHeightInput].forEach((input) => {
         input.addEventListener('change', function () {
-            const file = document.getElementById('fileInput').files[0];
+            const file = fileInput.files[0];
             if (file) {
                 handleImageDetails(file);
             }
@@ -69,21 +63,17 @@ document.addEventListener('DOMContentLoaded', function () {
             qualityNumber = 0.92;
         }
 
-        // Show image preview
-        sourceImagePreview.src = imageDataURL;
-        sourceImagePreview.classList.remove('d-none');
-
         sourceImagePreview.onload = () => {
             // Set image details
-            if (init) {
-                maxWidthInput.value = sourceImagePreview.width;
-                maxHeightInput.value = sourceImagePreview.height;
-                sourceImageResolution.textContent = `${sourceImagePreview.width}x${sourceImagePreview.height}`;
-            }
+            maxWidthInput.value = sourceImagePreview.width;
+            maxHeightInput.value = sourceImagePreview.height;
+            sourceImageResolution.textContent = `${sourceImagePreview.width}x${sourceImagePreview.height}`;
 
             // Compress and display the image
             compressAndDisplayImage(imageDataURL, sourceImagePreview.width, sourceImagePreview.height, sourceImageType, qualityNumber, maxWidthInput.value, maxHeightInput.value);
         }
+        sourceImagePreview.src = imageDataURL;
+        sourceImagePreview.classList.remove('d-none');
     }
 
     // Compress and display the image
@@ -116,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
         resultImageSize.textContent = formatSize(compressedImage.size);
 
         // Show the download button
-        const downloadButton = document.getElementById('downloadButton');
         downloadButton.classList.remove('d-none');
 
         // Set the download link to the compressed image data URL
@@ -153,5 +142,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         });
+    }
+
+    function clearAllInputs() {
+        fileInput.value = '';
+        maxWidthInput.value = '';
+        maxHeightInput.value = '';
     }
 });
