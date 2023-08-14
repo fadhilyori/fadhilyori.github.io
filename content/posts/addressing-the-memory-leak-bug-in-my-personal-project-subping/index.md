@@ -26,9 +26,9 @@ cover:
     hidden: false # only hide on current single page
 ---
 
-> **Author**: [Fadhil Yori](https://github.com/fadhilyori)
-> **Project**: [subping](/projects/subping)
-> **Related Issue**: [https://github.com/fadhilyori/subping/issues/23](https://github.com/fadhilyori/subping/issues/23)
+> **Author**: [Fadhil Yori](https://github.com/fadhilyori)  
+> **Project**: [subping](/projects/subping)  
+> **Related Issue**: [https://github.com/fadhilyori/subping/issues/23](https://github.com/fadhilyori/subping/issues/23)  
 
 ## Background
 
