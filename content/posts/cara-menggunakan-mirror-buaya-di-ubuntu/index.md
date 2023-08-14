@@ -1,23 +1,29 @@
-+++
-author = "Fadhil Yori Hibatullah"
-title = "Cara Menggunakan Mirror Buaya di Ubuntu"
-date = "2021-09-12"
-draft = false
-description = "Bagaimana sih menggunakan mirror Ubuntu lokal? mari kita bahas disini"
-tags = [
-    "linux",
-    "mirror",
-    "repository",
-    "buaya",
-    "klas",
-]
-categories = [
-    "buaya-klas",
-    "tutorial",
-]
-series = ["Buaya KLAS"]
-image = "buaya.klas.or.id-cover.png"
-+++
+---
+title: "Cara Menggunakan Mirror Buaya di Ubuntu"
+date: "2021-09-12"
+tags: ["linux", "mirror", "repository", "buaya", "klas"]
+categories: ["tutorial"]
+author: "Fadhil Yori"
+draft: false
+hidemeta: false
+description: "Bagaimana sih menggunakan mirror Ubuntu lokal? mari kita bahas disini"
+canonicalURL: ""
+disableHLJS: false
+disableShare: false
+hideSummary: false
+searchHidden: false
+ShowReadingTime: true
+ShowBreadCrumbs: true
+ShowPostNavLinks: true
+ShowWordCount: true
+ShowRssButtonInSectionTermList: true
+cover:
+    image: "buaya.klas.or.id-cover.png" # image path/url
+    alt: "Landing Page buaya.klas.or.id" # alt text
+    caption: "Landing Page buaya.klas.or.id" # display caption under cover
+    relative: true # when using page bundles set this to true
+    hidden: false # only hide on current single page
+---
 
 ## Apa itu Buaya KLAS?
 Buaya KLAS merupakan mirror Linux gratis yang dirawat oleh teman-teman KLAS (Kelompok Linux Arek Suroboyo) dimana server ini berada di daerah Kota Surabaya, Indonesia. Saat ini ada 6 distribusi Linux yang ada di Buaya, yaitu: 

@@ -1,188 +1,153 @@
 baseurl: https://fadhilyori.my.id
-languageCode: id-id
-theme: hugo-theme-stack
+theme: PaperMod
 paginate: 5
-title: Fadhil Yori Hibatullah
-
-# Change it to your Disqus shortname before using
-disqusShortname: 
+title: Fadhil Yori
 
 # GA Tracking ID
 googleAnalytics: G-VE4FZCJFS6
 
 # Theme i18n support
 # Available values: en, fr, id, ja, ko, pt-br, zh-cn, es, de, nl, it
-DefaultContentLanguage: id
+DefaultContentLanguage: en
 
-permalinks:
-    post: /p/:slug/
-    page: /:slug/
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON # is necessary
+
+minify:
+    disableXML: true
+    minifyOutput: true
 
 params:
-    mainSections:
-        - post
-    featuredImageField: image
-    rssFullContent: true
-    favicon: favicon.ico
+    env: production
+    title: Fadhil Yori
+    description: "Fadhil Yori Personal Site"
+    keywords: [Blog, Portofolio]
+    author: Fadhil Yori
+    # DateFormat: "2 January 2006"
 
-    footer:
-        since: 2021
-        customText:
+    defaultTheme: auto
+    disableThemeToggle: false
 
-    dateFormat:
-        published: Jan 02, 2006
-        lastUpdated: Jan 02, 2006 15:04 MST
+    ShowReadingTime: true
+    ShowShareButtons: true
+    ShowPostNavLinks: true
+    ShowBreadCrumbs: true
+    ShowCodeCopyButtons: true
+    ShowWordCount: true
+    ShowRssButtonInSectionTermList: true
+    UseHugoToc: false
+    disableSpecial1stPost: false
+    disableScrollToTop: false
+    comments: false
+    hidemeta: false
+    hideSummary: false
+    showtoc: true
+    tocopen: true
 
-    sidebar:
-        emoji: 🇮🇩
-        subtitle: Blog pribadi saya, semoga bermanfaat
-        avatar:
-            enabled: true
-            local: true
-            src: img/avatar.jpg
+    assets:
+        favicon: favicon2.ico
+        disableHLJS: false
 
-    article:
-        math: false
-        toc: true
-        readingTime: true
-        license:
-            enabled: false
-            default: Licensed under CC BY-NC-SA 4.0
+    label:
+        text: "Fadhil Yori"
+        icon: favicon2.ico
 
-    comments:
-        enabled: false
-        provider: disqus
+        # profile-mode
+    profileMode:
+        enabled: true # needs to be explicitly set
+        title: Fadhil Yori
+        subtitle: "Passionate about technology and constantly learning in the ever-evolving world of tech. I'm the Technology Infrastructure Lead at [Trustmedis](https://trustmedis.com), where I thrive in managing and optimizing infrastructure to support innovative solutions. Excited about collaborating on open-source projects and exploring new possibilities in the tech realm. I also manage [Buaya's repository server](https://buaya.klas.or.id) and [KLAS's](https://klas.or.id) services."
+        imageUrl: "/img/avatar2.jpg"
+        imageWidth: 240
+        imageHeight: 240
+        imageTitle: Fadhil Yori
+        buttons:
+            - name: Posts
+              url: posts
+            - name: Projects
+              url: projects
+            - name: Tags
+              url: tags
 
-        disqusjs:
-            shortname:
-            apiUrl:
-            apiKey:
-            admin:
-            adminLabel:
+    # home-info mode
+    homeInfoParams:
+        Title: "Hi there \U0001F44B, I'm Fadhil Yori"
+        Content: Passionate about technology and constantly learning in the ever-evolving world of tech. I'm the Technology Infrastructure Lead at [Trustmedis](https://trustmedis.com), where I thrive in managing and optimizing infrastructure to support innovative solutions. Excited about collaborating on open-source projects and exploring new possibilities in the tech realm. I also manage [Buaya's repository server](https://buaya.klas.or.id) and [KLAS's](https://klas.or.id) services.
 
-        utterances:
-            repo:
-            issueTerm: pathname
-            label:
+    socialIcons:
+        - name: github
+          url: "https://github.com/fadhilyori"
+        - name: twitter
+          url: "https://twitter.com/fadhilyori"
+        - name: instagram
+          url: "https://instagram.com/fadhilyori"
+        - name: linkedin
+          url: "https://www.linkedin.com/in/fadhil-yori-hibatullah"
+        - name: email
+          url: "mailto:me@fadhilyori.my.id"
+        - name: leetcode
+          url: "https://leetcode.com/fadhilyori/"
 
-        remark42:
-            host:
-            site:
-            locale:
+    cover:
+        linkFullImages: true
+        hidden: false
+        hiddenInList: false
+        hiddenInSingle: false
 
-        vssue:
-            platform:
-            owner:
-            repo:
-            clientId:
-            clientSecret:
-            autoCreateIssue: false
+    editPost:
+        URL: "https://github.com/fadhilyori/fadhilyori.github.io/tree/master/content"
+        Text: "Suggest Changes"
+        appendFilePath: true
 
-        # Waline client configuration see: https://waline.js.org/en/reference/client.html
-        waline:
-            serverURL:
-            lang:
-            visitor:
-            avatar:
-            emoji:
-                - https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo
-            requiredMeta:
-                - name
-                - email
-                - url
-            placeholder:
-            locale:
-                admin: Admin
-
-        twikoo:
-            envId:
-            region:
-            path:
-            lang:
-
-        giscus:
-            repo:
-            repoID:
-            category:
-            categoryID:
-            mapping:
-            lightTheme:
-            darkTheme:
-            reactionsEnabled: 1
-            emitMetadata: 0
-
-    widgets:
-        enabled:
-            - search
-            - archives
-            - tag-cloud
-
-        archives:
-            limit: 5
-
-        tagCloud:
-            limit: 10
-
-    opengraph:
-        twitter:
-            # Your Twitter username
-            site: fadhilyori
-
-            # Available values: summary, summary_large_image
-            card: summary_large_image
-
-    defaultImage:
-        opengraph:
-            enabled: false
-            local: false
-            src:
-
-    colorScheme:
-        # Display toggle
-        toggle: true
-
-        # Available values: auto, light, dark
-        default: auto
-
-    imageProcessing:
-        cover:
-            enabled: true
-        content:
-            enabled: true
-
-### Custom menu
-### See https://docs.stack.jimmycai.com/configuration/custom-menu.html
-### To remove about, archive and search page menu item, remove `menu` field from their FrontMatter
+    fuseOpts:
+        isCaseSensitive: false
+        shouldSort: true
+        location: 0
+        distance: 1000
+        threshold: 0.4
+        minMatchCharLength: 0
+        keys: ["title", "permalink", "summary", "content"]
 menu:
     main:
-        - identifier: home
-          name: Home
-          url: /
-          weight: -100
-          pre: home
-          params:
-              ### For demonstration purpose, the home link will be open in a new tab
-              newTab: false
+        - identifier: posts
+          name: Posts
+          url: /posts/
+          weight: 10
+        - identifier: projects
+          name: Projects
+          url: /projects/
+          weight: 20
+        - identifier: archives
+          name: Archives
+          url: /archives/
+          weight: 30
+        - identifier: categories
+          name: Categories
+          url: /categories/
+          weight: 40
+        - identifier: tags
+          name: Tags
+          url: /tags/
+          weight: 50
+        - identifier: search
+          name: Search
+          url: /search/
+          weight: 60
 
-related:
-    includeNewer: true
-    threshold: 60
-    toLower: false
-    indices:
-        - name: tags
-          weight: 100
-
-        - name: categories
-          weight: 200
-
+pygmentsUseClasses: true
 markup:
-    goldmark:
-        renderer:
-            ## Set to true if you have HTML content inside Markdown
-            unsafe: true
-    tableOfContents:
-        endLevel: 4
-        ordered: true
-        startLevel: 2
     highlight:
         noClasses: false
+        # anchorLineNos: true
+        # codeFences: true
+        # guessSyntax: true
+        # lineNos: true
+        # style: monokai
