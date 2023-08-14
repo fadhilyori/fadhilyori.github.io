@@ -1,21 +1,29 @@
-+++
-author = "Fadhil Yori Hibatullah"
-title = "Addressing the Memory Leak Bug in My Personal Project (subping)"
-date = "2023-07-06"
-draft = false
-description = "Encountered a critical memory leak issue while handling IPv6 hosts in [subping](https://github.com/fadhilyori/subping). Investigating the problem's impact on performance, stability, and scalability. Conducting benchmark tests to identify the root cause and develop an optimized solution for stable and efficient handling of IPv6 hosts."
-tags = [
-    "network",
-    "ping",
-    "scanning",
-]
-categories = [
-    "writeup",
-    "note",
-]
-series = ["Bug", "Design Pattern", "Coding"]
-image = "cover.jpg"
-+++
+---
+title: "Addressing the Memory Leak Bug in My Personal Project (subping)"
+date: "2023-07-06"
+tags: ["network", "ping", "scanning"]
+categories: ["writeup"]
+author: "Fadhil Yori"
+draft: false
+hidemeta: false
+description: "Encountered a critical memory leak issue while handling IPv6 hosts in subping. Investigating the problem's impact on performance, stability, and scalability. Conducting benchmark tests to identify the root cause and develop an optimized solution for stable and efficient handling of IPv6 hosts."
+canonicalURL: ""
+disableHLJS: false
+disableShare: false
+hideSummary: false
+searchHidden: false
+ShowReadingTime: true
+ShowBreadCrumbs: true
+ShowPostNavLinks: true
+ShowWordCount: true
+ShowRssButtonInSectionTermList: true
+cover:
+    image: "pankaj-patel-u2Ru4QBXA5Q-unsplash" # image path/url
+    alt: "Code" # alt text
+    caption: "Photo by <a href=\"https://unsplash.com/@pankajpatel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText\">Pankaj Patel</a> on <a href=\"https://unsplash.com/photos/u2Ru4QBXA5Q?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText\">Unsplash</a>" # display caption under cover
+    relative: true # when using page bundles set this to true
+    hidden: false # only hide on current single page
+---
 
 # Addressing the Memory Leak Bug in My Personal Project (subping)
 
