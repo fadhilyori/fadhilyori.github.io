@@ -6,9 +6,8 @@ categories: ["tutorial"]
 author: "Fadhil Yori"
 draft: false
 hidemeta: false
-description: "Bagaimana sih menggunakan mirror Ubuntu lokal? mari kita bahas disini"
+summary: "Bagaimana sih menggunakan mirror Ubuntu lokal? mari kita bahas disini."
 canonicalURL: ""
-disableHLJS: false
 disableShare: false
 hideSummary: false
 searchHidden: false

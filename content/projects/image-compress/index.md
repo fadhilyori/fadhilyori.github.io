@@ -4,7 +4,8 @@ date: "2023-08-01"
 tags: ["image", "resize", "compression", "image-processing"]
 categories: ["projects"]
 author: "Fadhil Yori"
-summary: "Optimize your images in-browser without uploading to a server. Quick, secure, and totally free. "
+summary: "Optimize your images in-browser without uploading to a server. Quick, secure, and totally free."
+description: "Optimize your images in-browser without uploading to a server. Quick, secure, and totally free."
 ShowWordCount: false
 ShowReadingTime: false
 showToc: false

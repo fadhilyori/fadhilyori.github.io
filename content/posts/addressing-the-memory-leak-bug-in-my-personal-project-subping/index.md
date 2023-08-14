@@ -6,6 +6,7 @@ categories: ["writeup"]
 author: "Fadhil Yori"
 draft: false
 hidemeta: false
+summary: "Encountered a critical memory leak issue while handling IPv6 hosts in subping. Investigating the problem's impact on performance, stability, and scalability."
 description: "Encountered a critical memory leak issue while handling IPv6 hosts in subping. Investigating the problem's impact on performance, stability, and scalability. Conducting benchmark tests to identify the root cause and develop an optimized solution for stable and efficient handling of IPv6 hosts."
 canonicalURL: ""
 disableHLJS: false
@@ -25,10 +26,8 @@ cover:
     hidden: false # only hide on current single page
 ---
 
-# Addressing the Memory Leak Bug in My Personal Project (subping)
-
-> **Author**: [Fadhil Yori](https://github.com/fadhilyori)  
-> **Project**: [https://github.com/fadhilyori/subping](https://github.com/fadhilyori/subping)  
+> **Author**: [Fadhil Yori](https://github.com/fadhilyori)
+> **Project**: [subping](/projects/subping)
 > **Related Issue**: [https://github.com/fadhilyori/subping/issues/23](https://github.com/fadhilyori/subping/issues/23)
 
 ## Background

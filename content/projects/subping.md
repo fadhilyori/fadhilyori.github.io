@@ -5,6 +5,7 @@ tags: ["network", "ping", "scanning"]
 categories: ["projects"]
 author: "Fadhil Yori"
 summary: "subping is a powerful and user-friendly command-line tool that allows you to perform ICMP ping operations on all IP addresses within a specified subnet range."
+description: "subping is a powerful and user-friendly command-line tool that allows you to perform ICMP ping operations on all IP addresses within a specified subnet range. With subping, you can effortlessly discover and monitor the availability of devices within a network by systematically pinging each IP address within the defined subnet."
 ShowWordCount: false
 ShowReadingTime: false
 cover:

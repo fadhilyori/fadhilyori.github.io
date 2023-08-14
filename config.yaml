@@ -54,7 +54,7 @@ params:
 
     assets:
         favicon: favicon2.ico
-        disableHLJS: false
+        disableHLJS: true
 
     label:
         text: "Fadhil Yori"
@@ -103,9 +103,9 @@ params:
         hiddenInSingle: false
 
     editPost:
-        URL: "https://github.com/fadhilyori/fadhilyori.github.io/tree/master/content"
+        URL: "https://github.com/fadhilyori/fadhilyori.github.io/issues"
         Text: "Suggest Changes"
-        appendFilePath: true
+        appendFilePath: false
 
     fuseOpts:
         isCaseSensitive: false
@@ -145,9 +145,9 @@ menu:
 pygmentsUseClasses: true
 markup:
     highlight:
-        noClasses: false
+        # noClasses: false
         # anchorLineNos: true
-        # codeFences: true
-        # guessSyntax: true
-        # lineNos: true
-        # style: monokai
+        codeFences: true
+        guessSyntax: true
+        lineNos: true
+        style: monokai
