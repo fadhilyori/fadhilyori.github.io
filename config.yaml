@@ -97,7 +97,7 @@ params:
           url: "https://leetcode.com/fadhilyori/"
 
     cover:
-        linkFullImages: true
+        linkFullImages: false
         hidden: false
         hiddenInList: false
         hiddenInSingle: false
