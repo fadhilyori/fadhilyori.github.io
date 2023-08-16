@@ -130,7 +130,7 @@ params:
   tocopen: true
 
   assets:
-    favicon: favicon2.ico
+    favicon: https://ui-avatars.com/api/?name=Fadhil+Yori&background=0D8ABC&color=fff&font-size=0.6&rounded=true&format=svg&size=64
     disableHLJS: true
 
   label:
