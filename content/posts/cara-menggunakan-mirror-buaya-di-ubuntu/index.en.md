@@ -1,12 +1,14 @@
 ---
-title: "Cara Menggunakan Mirror Buaya di Ubuntu"
+slug: how-to-use-buaya.klas.or.id-mirror-in-ubuntu
+title: "How to Use buaya.klas.or.id Mirror in Ubuntu"
 date: "2021-09-12"
 tags: ["linux", "mirror", "repository", "buaya", "klas"]
 categories: ["tutorial"]
 author: "Fadhil Yori"
 draft: false
 hidemeta: false
-summary: "Bagaimana sih menggunakan mirror Ubuntu lokal? mari kita bahas disini."
+summary: "What are the steps to using a local Ubuntu mirror? Let's talk about it."
+description: "What are the steps to using a local Ubuntu mirror? Let's talk about it."
 canonicalURL: ""
 disableShare: false
 hideSummary: false
@@ -49,13 +51,13 @@ Kita langsung ke pembahasan, disini saya akan memberikan tutorial melalui _Graph
 5. Setelah itu bisa tutup aplikasi dan jangan lupa untuk memperbarui paket
 
 ### Melalui Terminal
-1. Sunting /etc/apt/sources.list dengan editor teks
+1. Sunting `/etc/apt/sources.list` dengan editor teks
 2. Ganti semua URL bawaan ke URL Buaya KLAS `https://buaya.klas.or.id/ubuntu/`
 
     Example : 
-{{< highlight bash >}}
-deb https://buaya.klas.or.id/ubuntu/ focal main 
-deb-src https://buaya.klas.or.id/ubuntu/ focal main 
-{{< /highlight >}}
+    ```
+    deb https://buaya.klas.or.id/ubuntu/ focal main 
+    deb-src https://buaya.klas.or.id/ubuntu/ focal main 
+    ```
 3. Simpan perubahan
 4. Jangan lupa untuk update paket dengan perintah `sudo apt update`

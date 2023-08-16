@@ -2,67 +2,36 @@ baseurl: https://fadhilyori.my.id
 theme: PaperMod
 paginate: 5
 title: Fadhil Yori
+defaultContentLanguage: id
 
 # GA Tracking ID
 googleAnalytics: G-VE4FZCJFS6
 
-# Theme i18n support
-# Available values: en, fr, id, ja, ko, pt-br, zh-cn, es, de, nl, it
-DefaultContentLanguage: en
-
-enableRobotsTXT: true
-buildDrafts: false
-buildFuture: false
-buildExpired: false
-
-outputs:
-    home:
-        - HTML
-        - RSS
-        - JSON # is necessary
-
-minify:
-    disableXML: true
-    minifyOutput: true
-
-params:
-    env: production
-    title: Fadhil Yori
-    description: "Fadhil Yori Personal Site"
-    keywords: [Blog, Portofolio]
-    author: Fadhil Yori
-    # DateFormat: "2 January 2006"
-
-    defaultTheme: auto
-    disableThemeToggle: false
-
-    ShowReadingTime: true
-    ShowShareButtons: true
-    ShowPostNavLinks: true
-    ShowBreadCrumbs: true
-    ShowCodeCopyButtons: true
-    ShowWordCount: true
-    ShowRssButtonInSectionTermList: true
-    UseHugoToc: false
-    disableSpecial1stPost: false
-    disableScrollToTop: false
-    comments: false
-    hidemeta: false
-    hideSummary: false
-    showtoc: true
-    tocopen: true
-
-    assets:
-        favicon: favicon2.ico
-        disableHLJS: true
-
-    label:
-        text: "Fadhil Yori"
-        icon: favicon2.ico
-
-        # profile-mode
-    profileMode:
-        enabled: true # needs to be explicitly set
+languages:
+  en:
+    weight: 1
+    languageName: English
+    menu:
+      main:
+        - name: Posts
+          pageRef: /posts
+          weight: 10
+        - name: Projects
+          pageRef: /projects
+          weight: 20
+        - name: Categories
+          pageRef: /categories
+          weight: 30
+        - name: Tags
+          pageRef: /tags
+          weight: 40
+        - name: Search
+          pageRef: /search
+          weight: 50
+    params:
+      description: "Fadhil Yori Personal Site"
+      profileMode:
+        enabled: true
         title: Fadhil Yori
         subtitle: "Passionate about technology and constantly learning in the ever-evolving world of tech. I'm the Technology Infrastructure Lead at [Trustmedis](https://trustmedis.com), where I thrive in managing and optimizing infrastructure to support innovative solutions. Excited about collaborating on open-source projects and exploring new possibilities in the tech realm. I also manage [Buaya's repository server](https://buaya.klas.or.id) and [KLAS's](https://klas.or.id) services."
         imageUrl: "/img/avatar2.jpg"
@@ -70,80 +39,143 @@ params:
         imageHeight: 240
         imageTitle: Fadhil Yori
         buttons:
-            - name: Posts
-              url: posts
-            - name: Projects
-              url: projects
-            - name: Tags
-              url: tags
-
-    # home-info mode
-    homeInfoParams:
-        Title: "Hi there \U0001F44B, I'm Fadhil Yori"
-        Content: Passionate about technology and constantly learning in the ever-evolving world of tech. I'm the Technology Infrastructure Lead at [Trustmedis](https://trustmedis.com), where I thrive in managing and optimizing infrastructure to support innovative solutions. Excited about collaborating on open-source projects and exploring new possibilities in the tech realm. I also manage [Buaya's repository server](https://buaya.klas.or.id) and [KLAS's](https://klas.or.id) services.
-
-    socialIcons:
-        - name: github
-          url: "https://github.com/fadhilyori"
-        - name: twitter
-          url: "https://twitter.com/fadhilyori"
-        - name: instagram
-          url: "https://instagram.com/fadhilyori"
-        - name: linkedin
-          url: "https://www.linkedin.com/in/fadhil-yori-hibatullah"
-        - name: email
-          url: "mailto:me@fadhilyori.my.id"
-        - name: leetcode
-          url: "https://leetcode.com/fadhilyori/"
-
-    cover:
-        linkFullImages: false
-        hidden: false
-        hiddenInList: false
-        hiddenInSingle: false
-
-    editPost:
-        URL: "https://github.com/fadhilyori/fadhilyori.github.io/issues"
-        Text: "Suggest Changes"
-        appendFilePath: false
-
-    fuseOpts:
-        isCaseSensitive: false
-        shouldSort: true
-        location: 0
-        distance: 1000
-        threshold: 0.4
-        minMatchCharLength: 0
-        keys: ["title", "permalink", "summary", "content"]
-menu:
-    main:
-        - identifier: posts
-          name: Posts
-          url: /posts/
+          - identifier: posts
+            name: Posts
+            url: posts
+          - identifier: projects
+            name: Projects
+            url: projects
+          - identifier: tags
+            name: Tags
+            url: tags
+  id:
+    weight: 2
+    languageName: Bahasa Indonesia
+    menu:
+      main:
+        - name: Postingan
+          pageRef: /posts
           weight: 10
-        - identifier: projects
-          name: Projects
-          url: /projects/
+        - name: Proyek
+          pageRef: /projects
           weight: 20
-        - identifier: categories
-          name: Categories
-          url: /categories/
+        - name: Kategori
+          pageRef: /categories
           weight: 30
-        - identifier: tags
-          name: Tags
-          url: /tags/
+        - name: Tags
+          pageRef: /tags
           weight: 40
-        - identifier: search
-          name: Search
-          url: /search/
+        - name: Cari
+          pageRef: /search
           weight: 50
+    params:
+      description: "Fadhil Yori Situs Pribadi"
+      profileMode:
+        enabled: true
+        title: Fadhil Yori
+        subtitle: "Senang belajar di dunia teknologi yang terus berkembang. Saya bekerja sebagai Technology Infrastructure Lead di [Trustmedis](https://trustmedis.com), tempat saya berkembang pesat dalam mengelola dan mengoptimalkan infrastruktur untuk mendukung solusi inovatif. Bersemangat untuk berkolaborasi dalam proyek sumber terbuka dan menjelajahi kemungkinan baru di dunia teknologi. Saya juga mengelola layanan [server repositori Buaya](https://buaya.klas.or.id) dan [KLAS](https://klas.or.id)."
+        imageUrl: "/img/avatar2.jpg"
+        imageWidth: 240
+        imageHeight: 240
+        imageTitle: Fadhil Yori
+        buttons:
+          - name: Postingan
+            url: posts
+          - name: Daftar Proyek
+            url: projects
+          - name: Tags
+            url: tags
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # is necessary
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production
+  title: Fadhil Yori
+  keywords: [Blog, Portofolio]
+  author: Fadhil Yori
+  # DateFormat: "2 January 2006"
+
+  defaultTheme: auto
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: false
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: true
+
+  assets:
+    favicon: https://ui-avatars.com/api/?name=Fadhil+Yori&background=0D8ABC&color=fff&font-size=0.6&rounded=true&format=svg&size=64
+    disableHLJS: true
+
+  label:
+    text: "Fadhil Yori"
+    icon: favicon2.ico
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/fadhilyori"
+    - name: twitter
+      url: "https://twitter.com/fadhilyori"
+    - name: instagram
+      url: "https://instagram.com/fadhilyori"
+    - name: linkedin
+      url: "https://www.linkedin.com/in/fadhil-yori-hibatullah"
+    - name: email
+      url: "mailto:me@fadhilyori.my.id"
+    - name: leetcode
+      url: "https://leetcode.com/fadhilyori/"
+
+  cover:
+    linkFullImages: false
+    hidden: false
+    hiddenInList: false
+    hiddenInSingle: false
+    responsiveImages: true
+
+  # editPost:
+  #   URL: "https://github.com/fadhilyori/fadhilyori.github.io/issues"
+  #   Text: "Suggest Changes"
+  #   appendFilePath: false
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
 
 pygmentsUseClasses: true
 markup:
-    highlight:
-        noClasses: false
-        # anchorLineNos: true
-        codeFences: true
-        guessSyntax: true
-        lineNos: true
-        style: monokai
+  highlight:
+    noClasses: false
+    # anchorLineNos: true
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    style: monokai
