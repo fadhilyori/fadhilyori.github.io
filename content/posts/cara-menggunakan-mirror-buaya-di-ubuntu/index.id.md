@@ -1,4 +1,5 @@
 ---
+slug: cara-menggunakan-mirror-buaya.klas.or.id-di-ubuntu
 title: "Cara Menggunakan Mirror buaya.klas.or.id di Ubuntu"
 date: "2021-09-12"
 tags: ["linux", "mirror", "repository", "buaya", "klas"]

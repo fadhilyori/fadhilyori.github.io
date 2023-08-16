@@ -1,4 +1,5 @@
 ---
+slug: mengatasi-bug-kebocoran-memori-di-proyek-pribadi-saya-subping
 title: "Mengatasi Bug Kebocoran Memori di Proyek Pribadi Saya (subping)"
 date: "2023-07-06"
 tags: ["network", "ping", "scanning"]

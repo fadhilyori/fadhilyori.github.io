@@ -1,4 +1,5 @@
 ---
+slug: addressing-the-memory-leak-bug-in-my-personal-project-subping
 title: "Addressing the Memory Leak Bug in My Personal Project (subping)"
 date: "2023-07-06"
 tags: ["network", "ping", "scanning"]
