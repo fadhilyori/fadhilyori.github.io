@@ -1,14 +1,14 @@
 ---
-slug: cara-menggunakan-mirror-buaya.klas.or.id-di-ubuntu
-title: "Cara Menggunakan Mirror buaya.klas.or.id di Ubuntu"
+slug: how-to-use-buaya.klas.or.id-mirror-in-ubuntu
+title: "How to Use buaya.klas.or.id Mirror in Ubuntu"
 date: "2021-09-12"
 tags: ["linux", "mirror", "repository", "buaya", "klas"]
 categories: ["tutorial"]
 author: "Fadhil Yori"
 draft: false
 hidemeta: false
-summary: "Bagaimana sih menggunakan mirror Ubuntu lokal? mari kita bahas disini."
-description: "Bagaimana sih menggunakan mirror Ubuntu lokal? mari kita bahas disini."
+summary: "What are the steps to using a local Ubuntu mirror? Let's talk about it."
+description: "What are the steps to using a local Ubuntu mirror? Let's talk about it."
 canonicalURL: ""
 disableShare: false
 hideSummary: false
@@ -19,7 +19,7 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 cover:
-    image: "buaya.klas.or.id-cover.png" # image path/url
+    image: "images/buaya.klas.or.id-cover.png" # image path/url
     alt: "Landing Page buaya.klas.or.id" # alt text
     caption: "Landing Page buaya.klas.or.id" # display caption under cover
     relative: true # when using page bundles set this to true
@@ -44,9 +44,9 @@ Kita langsung ke pembahasan, disini saya akan memberikan tutorial melalui _Graph
 ### Melalui GUI
 1. Buka aplikasi "_Software & Updates_"
 2. Pada bagian "_Download from:_", pilih _Other..._
-![Gambar 1 - Tampilan aplikasi _Software & Updates_](how-to-use-gui-3.png)
+![Gambar 1 - Tampilan aplikasi _Software & Updates_](images/how-to-use-gui-3.png)
 3. Kemudian cari Indonesia dan lebarkan, kemudian pilih buaya.klas.or.id
-![Gambar 2 - Tampilan daftar server](how-to-use-gui-4.png)
+![Gambar 2 - Tampilan daftar server](images/how-to-use-gui-4.png)
 4. Dan kemudian klik tombol "Choose server"
 5. Setelah itu bisa tutup aplikasi dan jangan lupa untuk memperbarui paket
 

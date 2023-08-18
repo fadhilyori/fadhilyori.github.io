@@ -1,14 +1,14 @@
 ---
-slug: mengatasi-bug-kebocoran-memori-di-proyek-pribadi-saya-subping
-title: "Mengatasi Bug Kebocoran Memori di Proyek Pribadi Saya (subping)"
+slug: addressing-the-memory-leak-bug-in-my-personal-project-subping
+title: "Addressing the Memory Leak Bug in My Personal Project (subping)"
 date: "2023-07-06"
 tags: ["network", "ping", "scanning"]
 categories: ["writeup"]
 author: "Fadhil Yori"
 draft: false
 hidemeta: false
-summary: "Mengalami masalah kebocoran memori kritis saat menangani host IPv6 di subping. Menyelidiki dampak masalah pada kinerja, stabilitas, dan skalabilitas."
-description: "Mengalami masalah kebocoran memori kritis saat menangani host IPv6 di subping. Menyelidiki dampak masalah pada kinerja, stabilitas, dan skalabilitas. Melakukan tes tolok ukur untuk mengidentifikasi akar penyebab dan mengembangkan solusi optimal untuk penanganan host IPv6 yang stabil dan efisien."
+summary: "Encountered a critical memory leak issue while handling IPv6 hosts in subping. Investigating the problem's impact on performance, stability, and scalability."
+description: "Encountered a critical memory leak issue while handling IPv6 hosts in subping. Investigating the problem's impact on performance, stability, and scalability. Conducting benchmark tests to identify the root cause and develop an optimized solution for stable and efficient handling of IPv6 hosts."
 canonicalURL: ""
 disableShare: false
 hideSummary: false
@@ -19,27 +19,27 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 cover:
-    image: "pankaj-patel-u2Ru4QBXA5Q-unsplash" # image path/url
-    alt: "Code" # alt text
-    caption: "Photo by <a href=\"https://unsplash.com/@pankajpatel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText\">Pankaj Patel</a> on <a href=\"https://unsplash.com/photos/u2Ru4QBXA5Q?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText\">Unsplash</a>" # display caption under cover
-    relative: true # when using page bundles set this to true
-    hidden: false # only hide on current single page
+    image: "images/pankaj-patel-u2Ru4QBXA5Q-unsplash.jpg"
+    alt: "Code"
+    caption: "Photo by <a href=\"https://unsplash.com/@pankajpatel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText\">Pankaj Patel</a> on <a href=\"https://unsplash.com/photos/u2Ru4QBXA5Q?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText\">Unsplash</a>"
+    relative: true
+    hidden: false
 ---
+ 
+> **Project**: [subping](/projects/subping)  
+> **Related Issue**: [https://github.com/fadhilyori/subping/issues/23](https://github.com/fadhilyori/subping/issues/23)  
 
-> **Proyek**: [subping](/projects/subping)  
-> **Isu yang Berkaitan**: [https://github.com/fadhilyori/subping/issues/23](https://github.com/fadhilyori/subping/issues/23)  
+## Background
 
-## Latar Belakang
+During the development process of [subping](https://github.com/fadhilyori/subping), our team encountered a critical issue involving a memory leak that specifically occurs when handling a substantial number of [IPv6](https://en.wikipedia.org/wiki/IPv6_address) hosts. This memory leak has a negative impact on the application's performance and raises concerns regarding its stability and scalability.
 
-Selama proses pengembangan [subping](https://github.com/fadhilyori/subping), tim kami mengalami masalah kritis yang melibatkan kebocoran memori yang secara khusus terjadi saat menangani sejumlah besar [IPv6](https://en.wikipedia.org/wiki/IPv6_address) host. Kebocoran memori ini berdampak negatif pada performa aplikasi dan menimbulkan kekhawatiran terkait stabilitas dan skalabilitasnya.
+We have observed that the leak becomes more pronounced as the number of IPv6 hosts increases. This observation has led us to investigate the intricacies of IPv6 host handling and its impact on memory management within the application. The significant increase in memory consumption under these conditions indicates the presence of a memory leak. Extensive testing and simulations have confirmed the intensity of the leak and its direct correlation with the workload. As a result, we have undertaken a focused investigation into the complex dynamics between IPv6 host handling and memory management. Armed with this knowledge, we have embarked on developing an optimized solution to ensure the stability and efficiency of subping.
 
-Kami telah mengamati bahwa kebocoran menjadi lebih jelas karena jumlah host IPv6 meningkat. Pengamatan ini mengarahkan kami untuk menyelidiki seluk-beluk penanganan host IPv6 dan dampaknya terhadap manajemen memori dalam aplikasi. Peningkatan konsumsi memori yang signifikan dalam kondisi ini menunjukkan adanya kebocoran memori. Pengujian dan simulasi ekstensif telah memastikan intensitas kebocoran dan korelasi langsungnya dengan beban kerja. Sebagai hasilnya, kami telah melakukan investigasi terfokus pada dinamika kompleks antara penanganan host IPv6 dan manajemen memori. Berbekal pengetahuan ini, kami telah memulai pengembangan solusi optimal untuk memastikan stabilitas dan efisiensi subping.
+To gain further insights and effectively address this issue, we have initiated a comprehensive benchmark test. This test aims to evaluate the application's performance under various scenarios, with a specific focus on monitoring memory usage during the processing of IPv6 hosts. Through this benchmark test, our objective is to uncover patterns and behaviors that will help us identify the root cause of the memory leak.
 
-Untuk mendapatkan wawasan lebih lanjut dan mengatasi masalah ini secara efektif, kami telah memulai uji tolok ukur yang komprehensif. Pengujian ini bertujuan untuk mengevaluasi performa aplikasi dalam berbagai skenario, dengan fokus khusus pada pemantauan penggunaan memori selama pemrosesan host IPv6. Melalui uji tolok ukur ini, tujuan kami adalah mengungkap pola dan perilaku yang akan membantu kami mengidentifikasi akar penyebab kebocoran memori.
+Our ultimate goal is to ensure a stable and efficient solution for handling IPv6 hosts within the subping application.
 
-Tujuan utama kami adalah memastikan solusi yang stabil dan efisien untuk menangani host IPv6 dalam aplikasi subping.
-
-## Masalah Utama
+## Main Problem
 
 The following code snippet demonstrates a function called **GenerateIPListFromCIDR** that generates a list of IP addresses within a specified range using CIDR notation. However, careful examination reveals a memory leak in the implementation, which can lead to inefficient memory usage over time.
 
@@ -252,11 +252,11 @@ This stark contrast highlights the advantage of using the `HostsIterator` functi
 
 - **GenerateIPListFromCIDR**
 
-![Before optimization](20230705_155722.png)
+![Before optimization](images/20230705_155722.png)
 
 - **Iterator**
 
-![After Optimization](20230705_155739.png)
+![After Optimization](images/20230705_155739.png)
 
 Based on the benchmark results, the `Iterator_Next2` function performed the best in terms of execution time, while `Iterator_Next` had the lowest memory allocation. This highlights the advantages of optimizing memory usage by using appropriate data structures and algorithms, leading to efficient resource utilization within the network package.
 

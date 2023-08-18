@@ -28,6 +28,9 @@ languages:
         - name: Search
           pageRef: /search
           weight: 50
+        - name: Archives
+          pageRef: /archives
+          weight: 60
     params:
       description: "Fadhil Yori Personal Site"
       profileMode:
@@ -68,6 +71,9 @@ languages:
         - name: Cari
           pageRef: /search
           weight: 50
+        - name: Arsip
+          pageRef: /archives
+          weight: 60
     params:
       description: "Fadhil Yori Situs Pribadi"
       profileMode:
@@ -126,6 +132,9 @@ params:
   hideSummary: false
   showtoc: true
   tocopen: true
+
+  permalinks:
+    posts: /:year/:month/:title/
 
   assets:
     favicon: https://ui-avatars.com/api/?name=Fadhil+Yori&background=0D8ABC&color=fff&font-size=0.6&rounded=true&format=svg&size=64
