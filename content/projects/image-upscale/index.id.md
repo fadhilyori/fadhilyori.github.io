@@ -1,6 +1,6 @@
 ---
 title: "Image Upscaling"
-date: "2023-08-20"
+date: "2023-08-19"
 tags: [ "image", "upscale", "image-processing" ]
 categories: [ "projects" ]
 author: "Fadhil Yori"
