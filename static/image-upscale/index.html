@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+    <meta name="color-scheme" content="dark light">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description"
+          content="Upscale your images in-browser without uploading to a server. Quick, secure, and totally free."/>
+    <link rel="shortcut icon"
+          href="https://ui-avatars.com/api/?name=Fadhil+Yori&background=0D8ABC&color=fff&font-size=0.6&rounded=true&format=svg&size=64"
+          type="image/x-icon">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGJH0V67XQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag("js", new Date());
+        gtag("config", "G-DGJH0V67XQ");
+    </script>
+    <title>Image Resize & Compression Service</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+          integrity="sha256-2TnSHycBDAm2wpZmgdi0z81kykGPJAkiUY+Wf97RbvY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="/image-upscale/css/app.css?v=1691566565"/>
+</head>
+
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Upscale Images Instantly!</h1>
+            <p class="text-center">
+                Upscale your images in-browser without uploading to a server.
+                Quick, secure, and totally free.
+            </p>
+            <p class="text-center">
+                Questions? Reach me at
+                <a href="https://fadhilyori.my.id/">https://fadhilyori.my.id/</a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-12 mb-4">
+            <label for="fileInput" class="form-label fw-bold">Select an image to upscale:</label>
+            <input type="file" class="form-control" id="fileInput" accept="image/*"/>
+        </div>
+        <div class="col-md-6 col-12 mb-4">
+            <label for="methodInput" class="form-label fw-bold">Methods: </label>
+            <select class="form-control" id="methodInput" autocomplete="off">
+                <option selected disabled value="">Choose one...</option>
+                <option value="nearest_neighbor_interpolation">Nearest-neighbor interpolation</option>
+            </select>
+        </div>
+        <div class="col-md-6 col-12 mb-4">
+            <label for="newWidthInput" class="form-label fw-bold">New Width:</label>
+            <input type="number" class="form-control" id="newWidthInput"/>
+        </div>
+        <div class="col-md-6 col-12">
+            <label for="newHeightInput" class="form-label fw-bold">New Height:</label>
+            <input type="number" class="form-control" id="newHeightInput"/>
+        </div>
+        <div class="col-12 mb-4">
+            <button type="button" class="btn btn-primary" id="submitBtn">Upscale</button>
+        </div>
+        <div class="col-md-6 col-12 mb-4">
+            <label class="form-label fw-bold">Compare (before/after)</label>
+            <div class="cocoen">
+                <img src="" id="sourceImagePreview" alt="Before">
+                <img src="" id="resultImagePreview" alt="After">
+            </div>
+        </div>
+        <div class="col-md-6 col-12 pt-4">
+            <p>
+                <strong>Original Resolution:</strong>
+                <span id="sourceImageResolution">-</span>
+            </p>
+            <p>
+                <strong>Original Size: </strong>
+                <span id="sourceImageSize">-</span>
+            </p>
+            <p>
+                <strong>Result Resolution: </strong>
+                <span id="resultImageResolution">-</span>
+            </p>
+            <p>
+                <strong>Result Size: </strong>
+                <span id="resultImageSize">-</span>
+            </p>
+            <a href="#" id="downloadButton" class="btn btn-primary d-none" download="compressed_image">Download</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/cocoen/dist/cocoen.js"></script>
+<script src="/image-upscale/js/app.js?v=1691566565"></script>
+</body>
+
+</html>

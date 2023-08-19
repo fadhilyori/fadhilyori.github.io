@@ -9,7 +9,9 @@ if (htmlElement.getAttribute("data-bs-theme") === 'auto') {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    Cocoen.create(document.querySelector('.cocoen'));
+    Cocoen.create(document.querySelector('.cocoen', {
+        color: '#0355c0'
+    }));
 
     const fileInput = document.getElementById('fileInput');
     const qualityValue = document.getElementById('qualityValue');

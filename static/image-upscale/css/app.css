@@ -1,0 +1,33 @@
+:root {
+    --text: #000000;
+    --bg: #FFFFFF;
+}
+
+@media (max-width:767px) {
+    .col-12 {
+        padding-left: 15px;
+        padding-right: 15px
+    }
+}
+
+@media (prefers-color-scheme:dark) {
+    :root {
+        --text: #eee;
+        --bg: #121212;
+    }
+
+    a {
+        color: #809fff;
+    }
+
+    .element {
+        color: var(--bs-primary-text-emphasis);
+        background-color: var(--bs-primary-bg-subtle);
+    }
+
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+}
