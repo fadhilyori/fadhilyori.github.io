@@ -53,11 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     fileInput.addEventListener('change', function (event) {
+        clearAllInputs();
         const file = event.target.files[0];
 
-        // Check if a file is selected
         if (!file) {
-            clearAllInputs();
             return;
         }
 
@@ -108,10 +107,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let imageResultAsDataURL;
 
-        if (method === 'nearest_neighbor_interpolation') {
-            imageResultAsDataURL = await upscaleNearestNeighborInterpolation(imageDataURL, newWidth, newHeight);
-        } else {
-            imageResultAsDataURL = await upscaleNearestNeighborInterpolation(imageDataURL, newWidth, newHeight);
+        switch (method) {
+            case 'nearest_neighbor_interpolation':
+                imageResultAsDataURL = await upscaleNearestNeighborInterpolation(imageDataURL, newWidth, newHeight);
+                break
+            case 'bilinear_interpolation':
+                imageResultAsDataURL = await upscaleBilinearInterpolation(imageDataURL, newWidth, newHeight);
+                break
+            default:
+                imageResultAsDataURL = await upscaleNearestNeighborInterpolation(imageDataURL, newWidth, newHeight);
         }
 
         const imageResultAsBlob = dataURLtoBlob(imageResultAsDataURL);
@@ -152,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const outputCanvas = document.createElement("canvas");
         const outputCtx = outputCanvas.getContext("2d");
         const outputImageData = outputCtx.createImageData(width, height);
-        const inputImageData = await getImageData(imageDataUrl, width, height);
+        const inputImageData = await getImageData(imageDataUrl);
 
         const xRatio = inputImageData.width / width;
         const yRatio = inputImageData.height / height;
@@ -178,6 +182,46 @@ document.addEventListener('DOMContentLoaded', function () {
         return outputCanvas.toDataURL();
     }
 
+    async function upscaleBilinearInterpolation(imageDataUrl, width, height) {
+        const outputCanvas = document.createElement("canvas");
+        const outputCtx = outputCanvas.getContext("2d");
+        const outputImageData = outputCtx.createImageData(width, height);
+        const inputImageData = await getImageData(imageDataUrl);
+
+        const xRatio = inputImageData.width / width;
+        const yRatio = inputImageData.height / height;
+
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const px = x * xRatio;
+                const py = y * yRatio;
+                const ix = Math.floor(px);
+                const iy = Math.floor(py);
+                const fx = px - ix;
+                const fy = py - iy;
+
+                const topLeftIndex = (iy * inputImageData.width + ix) * 4;
+                const topRightIndex = (iy * inputImageData.width + (ix + 1)) * 4;
+                const bottomLeftIndex = ((iy + 1) * inputImageData.width + ix) * 4;
+                const bottomRightIndex = ((iy + 1) * inputImageData.width + (ix + 1)) * 4;
+
+                for (let i = 0; i < 4; i++) {
+                    const topInterpolation = (1 - fx) * inputImageData.data[topLeftIndex + i] + fx * inputImageData.data[topRightIndex + i];
+                    const bottomInterpolation = (1 - fx) * inputImageData.data[bottomLeftIndex + i] + fx * inputImageData.data[bottomRightIndex + i];
+
+                    outputImageData.data[(y * width + x) * 4 + i] = (1 - fy) * topInterpolation + fy * bottomInterpolation;
+                }
+            }
+        }
+
+        outputCanvas.width = width;
+        outputCanvas.height = height;
+
+        outputCtx.putImageData(outputImageData, 0, 0);
+
+        return outputCanvas.toDataURL();
+    }
+
     function getNewImageSizeBasedOnRatio(srcWidth, srcHeight, targetWidth, targetHeight) {
         const widthRatio = targetWidth / srcWidth;
         const heightRatio = targetHeight / srcHeight;
@@ -189,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const newWidth = Math.round(srcWidth * minRatio);
         const newHeight = Math.round(srcHeight * minRatio);
 
-        return {width: newWidth, height: newHeight};
+        return { width: newWidth, height: newHeight };
     }
 
     // Utility function to read file as data URL
@@ -214,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let img = new Image();
 
             img.onload = function () {
-                resolve({height: img.height, width: img.width, img: img});
+                resolve({ height: img.height, width: img.width, img: img });
             }
 
             img.onerror = function () {
@@ -230,11 +274,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const parts = dataURL.split(';');
         const contentType = parts[0].split(':')[1];
         const raw = decodeURIComponent(parts[1]);
-        return new Blob([raw], {type: contentType});
+        return new Blob([raw], { type: contentType });
     }
 
     function clearAllInputs() {
-        fileInput.value = '';
         sourceImageSize.textContent = '-';
         sourceImageResolution.textContent = '-';
         resultImageSize.textContent = '-';
