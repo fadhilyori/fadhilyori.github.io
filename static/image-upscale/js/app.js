@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     clearAllInputs();
 
     newWidthInput.addEventListener('change', function (event) {
-        if (event.target.value < srcImageWidth) {
+        if (event.target.valueAsNumber < srcImageWidth) {
             event.target.value = srcImageWidth
         }
         const imgSize = getNewImageSizeBasedOnRatio(srcImageWidth, srcImageHeight, event.target.valueAsNumber, srcImageHeight);
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     newHeightInput.addEventListener('change', function (event) {
-        if (event.target.value < srcImageHeight) {
+        if (event.target.valueAsNumber < srcImageHeight) {
             event.target.value = srcImageHeight
         }
         const imgSize = getNewImageSizeBasedOnRatio(srcImageWidth, srcImageHeight, srcImageWidth, event.target.valueAsNumber);
@@ -110,10 +110,13 @@ document.addEventListener('DOMContentLoaded', function () {
         switch (method) {
             case 'nearest_neighbor_interpolation':
                 imageResultAsDataURL = await upscaleNearestNeighborInterpolation(imageDataURL, newWidth, newHeight);
-                break
+                break;
             case 'bilinear_interpolation':
                 imageResultAsDataURL = await upscaleBilinearInterpolation(imageDataURL, newWidth, newHeight);
-                break
+                break;
+            case 'bicubic_interpolation':
+                imageResultAsDataURL = await upscaleBicubicInterpolation(imageDataURL, newWidth, newHeight);
+                break;
             default:
                 imageResultAsDataURL = await upscaleNearestNeighborInterpolation(imageDataURL, newWidth, newHeight);
         }
@@ -179,7 +182,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         outputCtx.putImageData(outputImageData, 0, 0);
 
-        return outputCanvas.toDataURL();
+        const resultImageInDataUrl = outputCanvas.toDataURL();
+
+        outputCanvas.remove();
+
+        return resultImageInDataUrl;
     }
 
     async function upscaleBilinearInterpolation(imageDataUrl, width, height) {
@@ -208,8 +215,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 for (let i = 0; i < 4; i++) {
                     const topInterpolation = (1 - fx) * inputImageData.data[topLeftIndex + i] + fx * inputImageData.data[topRightIndex + i];
                     const bottomInterpolation = (1 - fx) * inputImageData.data[bottomLeftIndex + i] + fx * inputImageData.data[bottomRightIndex + i];
+                    const finalInterpolation = (1 - fy) * topInterpolation + fy * bottomInterpolation;
 
-                    outputImageData.data[(y * width + x) * 4 + i] = (1 - fy) * topInterpolation + fy * bottomInterpolation;
+                    outputImageData.data[(y * width + x) * 4 + i] = finalInterpolation;
                 }
             }
         }
@@ -219,7 +227,83 @@ document.addEventListener('DOMContentLoaded', function () {
 
         outputCtx.putImageData(outputImageData, 0, 0);
 
-        return outputCanvas.toDataURL();
+        const resultImageInDataUrl = outputCanvas.toDataURL();
+
+        outputCanvas.remove();
+
+        return resultImageInDataUrl;
+    }
+
+    async function upscaleBicubicInterpolation(imageDataUrl, width, height) {
+        const outputCanvas = document.createElement("canvas");
+        const outputCtx = outputCanvas.getContext("2d");
+        const outputImageData = outputCtx.createImageData(width, height);
+        const inputImageData = await getImageData(imageDataUrl);
+
+        const xRatio = inputImageData.width / width;
+        const yRatio = inputImageData.height / height;
+
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const px = x * xRatio;
+                const py = y * yRatio;
+                const ix = Math.floor(px);
+                const iy = Math.floor(py);
+                const fx = px - ix;
+                const fy = py - iy;
+
+                let r = 0;
+                let g = 0;
+                let b = 0;
+                let a = 0;
+
+                for (let dy = -1; dy <= 2; dy++) {
+                    for (let dx = -1; dx <= 2; dx++) {
+                        const t1 = Math.abs(dx - fx);
+                        const a1 = inputImageData.data[((iy + dy) * inputImageData.width + (ix + dx)) * 4];
+                        const b1 = inputImageData.data[((iy + dy) * inputImageData.width + (ix + dx) + 1) * 4];
+                        const c1 = inputImageData.data[((iy + dy) * inputImageData.width + (ix + dx) + 2) * 4];
+                        const d1 = inputImageData.data[((iy + dy) * inputImageData.width + (ix + dx) + 3) * 4];
+
+                        const weightX = cubicInterpolation(t1, a1, b1, c1, d1);
+                        const weightY = cubicInterpolation(Math.abs(fy - dy), 1, 1, 1, 1);
+
+                        const dataIndex = ((iy + dy) * inputImageData.width + (ix + dx)) * 4;
+
+                        r += inputImageData.data[dataIndex] * weightX * weightY;
+                        g += inputImageData.data[dataIndex + 1] * weightX * weightY;
+                        b += inputImageData.data[dataIndex + 2] * weightX * weightY;
+                        a += inputImageData.data[dataIndex + 3] * weightX * weightY;
+                    }
+                }
+
+                const outputIndex = (y * width + x) * 4;
+                outputImageData.data[outputIndex] = r;
+                outputImageData.data[outputIndex + 1] = g;
+                outputImageData.data[outputIndex + 2] = b;
+                outputImageData.data[outputIndex + 3] = a;
+            }
+        }
+
+        outputCanvas.width = width;
+        outputCanvas.height = height;
+
+        outputCtx.putImageData(outputImageData, 0, 0);
+
+        const resultImageInDataUrl = outputCanvas.toDataURL();
+
+        outputCanvas.remove();
+
+        return resultImageInDataUrl;
+    }
+
+    function cubicInterpolation(t, a, b, c, d) {
+        const p = (d - c) - (a - b);
+        const q = (a - b) - p;
+        const r = c - a;
+        const s = b;
+
+        return p * Math.pow(t, 3) + q * Math.pow(t, 2) + r * t + s;
     }
 
     function getNewImageSizeBasedOnRatio(srcWidth, srcHeight, targetWidth, targetHeight) {
