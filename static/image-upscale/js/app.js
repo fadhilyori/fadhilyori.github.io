@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const sourceImageResolution = document.getElementById('sourceImageResolution');
     const resultImageResolution = document.getElementById('resultImageResolution');
     const submitButton = document.getElementById('submitBtn');
-    const targetResoulutionSpan = document.getElementById('targetResoulutionSpan');
+    const submitButtonText = document.getElementById('submitButtonText');
+    const spinner = document.getElementById('spinner');
     const EMPTY_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAWVJREFUeF7t00ERAAAIhECvf2lr7AMTMODtOsrAKJpgriDYExSkIJgBDKeFFAQzgOG0kIJgBjCcFlIQzACG00IKghnAcFpIQTADGE4LKQhmAMNpIQXBDGA4LaQgmAEMp4UUBDOA4bSQgmAGMJwWUhDMAIbTQgqCGcBwWkhBMAMYTgspCGYAw2khBcEMYDgtpCCYAQynhRQEM4DhtJCCYAYwnBZSEMwAhtNCCoIZwHBaSEEwAxhOCykIZgDDaSEFwQxgOC2kIJgBDKeFFAQzgOG0kIJgBjCcFlIQzACG00IKghnAcFpIQTADGE4LKQhmAMNpIQXBDGA4LaQgmAEMp4UUBDOA4bSQgmAGMJwWUhDMAIbTQgqCGcBwWkhBMAMYTgspCGYAw2khBcEMYDgtpCCYAQynhRQEM4DhtJCCYAYwnBZSEMwAhtNCCoIZwHBaSEEwAxhOCykIZgDDaSEFwQxgOC0EC/KEzwBlGO+pQQAAAABJRU5ErkJggg==';
 
     let srcImageWidth = 0;
@@ -39,10 +40,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     scaleFactorInput.addEventListener('change', function (event) {
         targetImageSize = getNewImageSizeByFactor(srcImageWidth, srcImageHeight, event.target.valueAsNumber);
-        targetResoulutionSpan.textContent = ` to ${targetImageSize.width}x${targetImageSize.height}`
+        submitButtonText.textContent = `Upscale to ${targetImageSize.width}x${targetImageSize.height}`
     });
 
     fileInput.addEventListener('change', function (event) {
+        showSpinner();
         clearAllInputs();
         const file = event.target.files[0];
 
@@ -56,7 +58,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 srcImageHeight = result.height;
                 sourceImageResolution.textContent = `${result.width}x${result.height}`;
                 targetImageSize = getNewImageSizeByFactor(result.width, result.height, scaleFactorInput.valueAsNumber);
-                targetResoulutionSpan.textContent = ` to ${targetImageSize.width}x${targetImageSize.height}`
+                submitButtonText.textContent = `Upscale to ${targetImageSize.width}x${targetImageSize.height}`;
+
+                hideSpinner();
             });
 
             sourceImagePreview.src = imageDataUrl;
@@ -82,14 +86,15 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        showSpinner();
+
         readFileAsDataURL(file).then(imageDataUrl => {
             getImageDetail(imageDataUrl).then(() => {
-                runImageJob(file, methodInput.value).then(() => console.log('upscale success.'));
+                runImageJob(file, methodInput.value).then(() => showComplete());
             });
         }).catch(reason => console.log(reason));
     });
 
-    // Compress and display the image
     async function runImageJob(file, method) {
         const imageDataURL = await readFileAsDataURL(file);
         const newWidth = targetImageSize.width;
@@ -307,6 +312,20 @@ document.addEventListener('DOMContentLoaded', function () {
         return {width: newWidth, height: newHeight};
     }
 
+    function showSpinner() {
+        submitButtonText.textContent = 'Upscaling ...';
+        spinner.classList.remove("d-none");
+    }
+
+    function hideSpinner() {
+        spinner.classList.add("d-none");
+    }
+
+    function showComplete() {
+        hideSpinner();
+        submitButtonText.textContent = 'Upscale finished!';
+    }
+
     function getNewImageSizeByFactor(srcWidth, srcHeight, scaleFactor) {
         return {width: Math.floor(srcWidth * scaleFactor), height: Math.floor(srcHeight * scaleFactor)};
     }
@@ -358,6 +377,7 @@ document.addEventListener('DOMContentLoaded', function () {
         resultImageSize.textContent = '-';
         resultImageResolution.textContent = '-';
         scaleFactorInput.value = 1.0;
+        submitButtonText.textContent = "Upscale";
 
         sourceImagePreview.src = EMPTY_IMAGE;
         resultImagePreview.src = EMPTY_IMAGE;
