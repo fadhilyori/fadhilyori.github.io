@@ -19,8 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const fileInput = document.getElementById('fileInput');
     const methodInput = document.getElementById('methodInput');
-    const newWidthInput = document.getElementById('newWidthInput');
-    const newHeightInput = document.getElementById('newHeightInput');
+    const scaleFactorInput = document.getElementById('scaleFactorInput');
     const downloadButton = document.getElementById('downloadButton');
     const sourceImageSize = document.getElementById('sourceImageSize');
     const resultImageSize = document.getElementById('resultImageSize');
@@ -29,27 +28,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const sourceImageResolution = document.getElementById('sourceImageResolution');
     const resultImageResolution = document.getElementById('resultImageResolution');
     const submitButton = document.getElementById('submitBtn');
+    const targetResoulutionSpan = document.getElementById('targetResoulutionSpan');
     const EMPTY_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAWVJREFUeF7t00ERAAAIhECvf2lr7AMTMODtOsrAKJpgriDYExSkIJgBDKeFFAQzgOG0kIJgBjCcFlIQzACG00IKghnAcFpIQTADGE4LKQhmAMNpIQXBDGA4LaQgmAEMp4UUBDOA4bSQgmAGMJwWUhDMAIbTQgqCGcBwWkhBMAMYTgspCGYAw2khBcEMYDgtpCCYAQynhRQEM4DhtJCCYAYwnBZSEMwAhtNCCoIZwHBaSEEwAxhOCykIZgDDaSEFwQxgOC2kIJgBDKeFFAQzgOG0kIJgBjCcFlIQzACG00IKghnAcFpIQTADGE4LKQhmAMNpIQXBDGA4LaQgmAEMp4UUBDOA4bSQgmAGMJwWUhDMAIbTQgqCGcBwWkhBMAMYTgspCGYAw2khBcEMYDgtpCCYAQynhRQEM4DhtJCCYAYwnBZSEMwAhtNCCoIZwHBaSEEwAxhOCykIZgDDaSEFwQxgOC0EC/KEzwBlGO+pQQAAAABJRU5ErkJggg==';
 
     let srcImageWidth = 0;
     let srcImageHeight = 0;
+    let targetImageSize = {width: 0, height: 0};
 
     clearAllInputs();
 
-    newWidthInput.addEventListener('change', function (event) {
-        if (event.target.valueAsNumber < srcImageWidth) {
-            event.target.value = srcImageWidth
-        }
-        const imgSize = getNewImageSizeBasedOnRatio(srcImageWidth, srcImageHeight, event.target.valueAsNumber, srcImageHeight);
-        newHeightInput.value = imgSize.height;
-    });
-
-    newHeightInput.addEventListener('change', function (event) {
-        if (event.target.valueAsNumber < srcImageHeight) {
-            event.target.value = srcImageHeight
-        }
-        const imgSize = getNewImageSizeBasedOnRatio(srcImageWidth, srcImageHeight, srcImageWidth, event.target.valueAsNumber);
-        newWidthInput.value = imgSize.width;
+    scaleFactorInput.addEventListener('change', function (event) {
+        targetImageSize = getNewImageSizeByFactor(srcImageWidth, srcImageHeight, event.target.valueAsNumber);
+        targetResoulutionSpan.textContent = ` to ${targetImageSize.width}x${targetImageSize.height}`
     });
 
     fileInput.addEventListener('change', function (event) {
@@ -64,9 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
             getImageDetail(imageDataUrl).then(result => {
                 srcImageWidth = result.width;
                 srcImageHeight = result.height;
-                newWidthInput.value = result.width;
-                newHeightInput.value = result.height;
                 sourceImageResolution.textContent = `${result.width}x${result.height}`;
+                targetImageSize = getNewImageSizeByFactor(result.width, result.height, scaleFactorInput.valueAsNumber);
+                targetResoulutionSpan.textContent = ` to ${targetImageSize.width}x${targetImageSize.height}`
             });
 
             sourceImagePreview.src = imageDataUrl;
@@ -102,8 +92,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Compress and display the image
     async function runImageJob(file, method) {
         const imageDataURL = await readFileAsDataURL(file);
-        const newWidth = newWidthInput.valueAsNumber;
-        const newHeight = newHeightInput.valueAsNumber;
+        const newWidth = targetImageSize.width;
+        const newHeight = targetImageSize.height;
 
         let imageResultAsDataURL;
 
@@ -215,9 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 for (let i = 0; i < 4; i++) {
                     const topInterpolation = (1 - fx) * inputImageData.data[topLeftIndex + i] + fx * inputImageData.data[topRightIndex + i];
                     const bottomInterpolation = (1 - fx) * inputImageData.data[bottomLeftIndex + i] + fx * inputImageData.data[bottomRightIndex + i];
-                    const finalInterpolation = (1 - fy) * topInterpolation + fy * bottomInterpolation;
-
-                    outputImageData.data[(y * width + x) * 4 + i] = finalInterpolation;
+                    outputImageData.data[(y * width + x) * 4 + i] = (1 - fy) * topInterpolation + fy * bottomInterpolation;
                 }
             }
         }
@@ -301,9 +289,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const p = (d - c) - (a - b);
         const q = (a - b) - p;
         const r = c - a;
-        const s = b;
 
-        return p * Math.pow(t, 3) + q * Math.pow(t, 2) + r * t + s;
+        return p * Math.pow(t, 3) + q * Math.pow(t, 2) + r * t + b;
     }
 
     function getNewImageSizeBasedOnRatio(srcWidth, srcHeight, targetWidth, targetHeight) {
@@ -317,7 +304,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const newWidth = Math.round(srcWidth * minRatio);
         const newHeight = Math.round(srcHeight * minRatio);
 
-        return { width: newWidth, height: newHeight };
+        return {width: newWidth, height: newHeight};
+    }
+
+    function getNewImageSizeByFactor(srcWidth, srcHeight, scaleFactor) {
+        return {width: Math.floor(srcWidth * scaleFactor), height: Math.floor(srcHeight * scaleFactor)};
     }
 
     // Utility function to read file as data URL
@@ -342,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let img = new Image();
 
             img.onload = function () {
-                resolve({ height: img.height, width: img.width, img: img });
+                resolve({height: img.height, width: img.width, img: img});
             }
 
             img.onerror = function () {
@@ -358,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const parts = dataURL.split(';');
         const contentType = parts[0].split(':')[1];
         const raw = decodeURIComponent(parts[1]);
-        return new Blob([raw], { type: contentType });
+        return new Blob([raw], {type: contentType});
     }
 
     function clearAllInputs() {
@@ -366,8 +357,7 @@ document.addEventListener('DOMContentLoaded', function () {
         sourceImageResolution.textContent = '-';
         resultImageSize.textContent = '-';
         resultImageResolution.textContent = '-';
-        newWidthInput.value = '';
-        newHeightInput.value = '';
+        scaleFactorInput.value = 1.0;
 
         sourceImagePreview.src = EMPTY_IMAGE;
         resultImagePreview.src = EMPTY_IMAGE;

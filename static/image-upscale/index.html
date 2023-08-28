@@ -44,9 +44,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-12 mb-4">
+        <div class="col-md-4 col-12 mb-4">
             <label for="fileInput" class="form-label fw-bold">Select an image to upscale:</label>
             <input type="file" class="form-control" id="fileInput" accept="image/*"/>
+        </div>
+        <div class="col-md-2 col-12 mb-4 mx-auto">
+            <label for="scaleFactorInput" class="form-label fw-bold">Scale Factor:</label>
+            <input type="number" class="form-control" id="scaleFactorInput" value="1" step="0.1" min="1" max="10"/>
         </div>
         <div class="col-md-6 col-12 mb-4">
             <label for="methodInput" class="form-label fw-bold">Algorithm: </label>
@@ -57,16 +61,8 @@
                 <option value="bicubic_interpolation">Bicubic interpolation</option>
             </select>
         </div>
-        <div class="col-md-6 col-12 mb-4">
-            <label for="newWidthInput" class="form-label fw-bold">New Width:</label>
-            <input type="number" class="form-control" id="newWidthInput"/>
-        </div>
-        <div class="col-md-6 col-12 mb-4">
-            <label for="newHeightInput" class="form-label fw-bold">New Height:</label>
-            <input type="number" class="form-control" id="newHeightInput"/>
-        </div>
         <div class="col-12 mb-4">
-            <button type="button" class="btn btn-primary" id="submitBtn">Upscale</button>
+            <button type="button" class="btn btn-primary btn-lg" id="submitBtn">Upscale<span id="targetResoulutionSpan"></span></button>
         </div>
         <div class="col-md-6 col-12 mb-4">
             <label class="form-label fw-bold">Compare (before/after)</label>
