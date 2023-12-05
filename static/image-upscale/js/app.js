@@ -1,16 +1,3 @@
-// noinspection DuplicatedCode
-
-const htmlElement = document.querySelector("html")
-if (htmlElement.getAttribute("data-bs-theme") === 'auto') {
-    function updateTheme() {
-        document.querySelector("html").setAttribute("data-bs-theme",
-            window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
-    }
-
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
-    updateTheme()
-}
-
 document.addEventListener('DOMContentLoaded', function () {
     console.log("Ready!");
     Cocoen.create(document.querySelector('.cocoen'), {
@@ -156,13 +143,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const outputImageData = outputCtx.createImageData(width, height);
         const inputImageData = await getImageData(imageDataUrl);
 
-        const xRatio = inputImageData.width / width;
-        const yRatio = inputImageData.height / height;
+        const ratio = inputImageData.width / width;
 
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
-                const px = Math.floor(x * xRatio);
-                const py = Math.floor(y * yRatio);
+                const px = Math.floor(x * ratio);
+                const py = Math.floor(y * ratio);
                 const inputIndex = (py * inputImageData.width + px) * 4;
                 const outputIndex = (y * width + x) * 4;
 
@@ -298,20 +284,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return p * Math.pow(t, 3) + q * Math.pow(t, 2) + r * t + b;
     }
 
-    function getNewImageSizeBasedOnRatio(srcWidth, srcHeight, targetWidth, targetHeight) {
-        const widthRatio = targetWidth / srcWidth;
-        const heightRatio = targetHeight / srcHeight;
-
-        // Use the minimum ratio to ensure the image fits within the target dimensions
-        const minRatio = Math.max(widthRatio, heightRatio);
-
-        // Calculate the new dimensions while maintaining the aspect ratio
-        const newWidth = Math.round(srcWidth * minRatio);
-        const newHeight = Math.round(srcHeight * minRatio);
-
-        return {width: newWidth, height: newHeight};
-    }
-
     function showSpinner() {
         submitButtonText.textContent = 'Upscaling ...';
         spinner.classList.remove("d-none");
@@ -328,23 +300,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getNewImageSizeByFactor(srcWidth, srcHeight, scaleFactor) {
         return {width: Math.floor(srcWidth * scaleFactor), height: Math.floor(srcHeight * scaleFactor)};
-    }
-
-    // Utility function to read file as data URL
-    function readFileAsDataURL(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = () => reject(reader);
-            reader.readAsDataURL(file);
-        });
-    }
-
-    // Utility function to format file size
-    function formatSize(sizeInBytes) {
-        const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-        const i = parseInt(Math.floor(Math.log(sizeInBytes) / Math.log(1024)));
-        return (sizeInBytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
     }
 
     function getImageDetail(url) {

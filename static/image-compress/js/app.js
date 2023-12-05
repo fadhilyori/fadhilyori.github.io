@@ -1,17 +1,7 @@
-const htmlElement = document.querySelector("html")
-if (htmlElement.getAttribute("data-bs-theme") === 'auto') {
-    function updateTheme() {
-        document.querySelector("html").setAttribute("data-bs-theme",
-            window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
-    }
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
-    updateTheme()
-}
-
 document.addEventListener('DOMContentLoaded', function () {
-    Cocoen.create(document.querySelector('.cocoen', {
+    Cocoen.create(document.querySelector('.cocoen'), {
         color: '#0355c0'
-    }));
+    });
 
     const fileInput = document.getElementById('fileInput');
     const qualityValue = document.getElementById('qualityValue');
@@ -37,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        handleImageDetails(file, true);
+        handleImageDetails(file, true).then({});
 
         // Show source image size
         sourceImageSize.textContent = formatSize(file.size);
@@ -48,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         input.addEventListener('change', function () {
             const file = fileInput.files[0];
             if (file) {
-                handleImageDetails(file);
+                handleImageDetails(file).then({});
             }
         });
     });
@@ -98,7 +88,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const newWidth = width * ratio;
         const newHeight = height * ratio;
 
-        const compressedImage = await compressImage(imageBlob, { quality: quality, mimeType: mimetype, maxWidth: newWidth, maxHeight: newHeight });
+        const compressedImage = await compressImage(imageBlob, {
+            quality: quality, mimeType: mimetype, maxWidth: newWidth, maxHeight: newHeight
+        });
         const resultImageDataURL = await readFileAsDataURL(compressedImage);
 
         const rImage = await getImageDimension(resultImageDataURL);
@@ -117,32 +109,13 @@ document.addEventListener('DOMContentLoaded', function () {
         downloadButton.href = resultImageDataURL;
     }
 
-    // Utility function to read file as data URL
-    function readFileAsDataURL(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = () => reject(reader);
-            reader.readAsDataURL(file);
-        });
-    }
-
-    // Utility function to format file size
-    function formatSize(sizeInBytes) {
-        const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-        const i = parseInt(Math.floor(Math.log(sizeInBytes) / Math.log(1024)));
-        return (sizeInBytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
-    }
-
     // Utility function to compress image
     function compressImage(blob, options) {
         return new Promise((resolve, reject) => {
             new Compressor(blob, {
-                ...options,
-                success(result) {
+                ...options, success(result) {
                     resolve(result);
-                },
-                error(err) {
+                }, error(err) {
                     reject(err);
                 }
             });
@@ -154,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let img = new Image();
 
             img.onload = function () {
-                resolve({ height: img.height, width: img.width });
+                resolve({height: img.height, width: img.width});
             }
 
             img.onerror = function () {
