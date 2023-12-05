@@ -151,6 +151,8 @@ params:
       url: "https://twitter.com/fadhilyori"
     - name: instagram
       url: "https://instagram.com/fadhilyori"
+    - name: facebook
+      url: "https://facebook.com/fadhilyori/"
     - name: linkedin
       url: "https://www.linkedin.com/in/fadhil-yori-hibatullah"
     - name: email
