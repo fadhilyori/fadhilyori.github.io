@@ -58,7 +58,7 @@ Penggunaan DNS ini bisa dilakukan di banyak platform, di blog ini saya akan memb
 
 > ⚠️**Catatan**:
 >
-> DNS server bisa mencatat domain yang Anda akses. Oleh karena itu, pastikan Anda menggunakan DNS server yang Anda percayai. Server ini tidak menyimpan log pencarian DNS atau aktivitas pengguna secara rutin. Namun, dalam beberapa kasus, log mungkin perlu disimpan untuk keperluan pemantauan dan perbaikan jika terjadi masalah atau serangan terhadap server ini.
+> DNS server bisa mencatat domain yang Anda akses. Dan bahkan DNS server dapat mengarahkan Anda ke situs yang berbeda. Oleh karena itu, pastikan Anda menggunakan DNS server yang Anda percayai. Server ini tidak menyimpan log pencarian DNS atau aktivitas pengguna secara rutin. Namun, dalam beberapa kasus, log mungkin perlu disimpan untuk keperluan pemantauan dan perbaikan jika terjadi masalah atau serangan terhadap server ini.
 >
 > Apabila terdapat masalah atau pertanyaan, jangan ragu untuk menghubungi saya.
 

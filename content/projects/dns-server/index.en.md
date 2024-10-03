@@ -58,7 +58,7 @@ This DNS can be used on many platforms. In this blog, I'll cover how to use it o
 
 > ⚠️**Note**:
 >
-> DNS servers can log the domains you access. Therefore, make sure to use DNS servers you trust. This server does not routinely store DNS query logs or user activity. However, in some cases, logs may need to be kept for monitoring and troubleshooting purposes if issues or attacks occur on this server.
+> DNS servers can log the domains you access. And DNS servers can even redirect you to different websites. Therefore, make sure to use DNS servers you trust. This server does not routinely store DNS query logs or user activity. However, in some cases, logs may need to be kept for monitoring and troubleshooting purposes if issues or attacks occur on this server.
 >
 > If you encounter any problems or have questions, feel free to contact me.
 
