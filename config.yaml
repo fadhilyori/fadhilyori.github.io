@@ -163,7 +163,7 @@ params:
   cover:
     linkFullImages: false
     hidden: false
-    hiddenInList: false
+    hiddenInList: true
     hiddenInSingle: false
     responsiveImages: true
 
