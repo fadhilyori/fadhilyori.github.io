@@ -8,7 +8,8 @@ summary: "A free-to-use personal DNS server that supports DNS-over-HTTPS and DNS
 description: "A free-to-use personal DNS server that supports DNS-over-HTTPS and DNS-over-TLS to protect your privacy and security."
 ShowWordCount: false
 ShowReadingTime: false
-showToc: false
+showToc: true
+TocOpen: false
 cover:
     image: "https://unsplash.com/photos/2m71l9fA6mg/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8aW50ZXJuZXR8ZW58MHx8fHwxNzI3OTE2MjUwfDA&force=true&w=320"
     alt: "Photo by <a href=\"https://unsplash.com/@yapics?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash\">Leon Seibert</a> on <a href=\"https://unsplash.com/photos/internet-led-signage-beside-building-near-buildings-2m71l9fA6mg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash\">Unsplash</a>"
