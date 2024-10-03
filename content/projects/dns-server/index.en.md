@@ -55,6 +55,12 @@ For those unfamiliar, DNS stands for Domain Name System, a system that maps doma
 
 This DNS can be used on many platforms. In this blog, I'll cover how to use it on web browsers and Android.
 
+> ⚠️**Note**:
+>
+> DNS servers can log the domains you access. Therefore, make sure to use DNS servers you trust. This server does not routinely store DNS query logs or user activity. However, in some cases, logs may need to be kept for monitoring and troubleshooting purposes if issues or attacks occur on this server.
+>
+> If you encounter any problems or have questions, feel free to contact me.
+
 ### A. How to Use DNS on Web Browsers (Supports DoH only)
 
 1. **On Google Chrome:**
