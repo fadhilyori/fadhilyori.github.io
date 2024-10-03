@@ -93,7 +93,7 @@ Here, I'll guide you on how to use DNS-over-TLS on Android, using Samsung's OneU
 
 - Choose 'Private DNS provider hostname.'
 
-- Enter the DNS hostname in the provided field, then click 'Save.'
+- Enter the DNS hostname in the provided field without the protocol (e.g., `free.dns.fadhilyori.my.id`), then click 'Save.'
 
 I hope this short tutorial helps you all achieve a safer and more comfortable internet experience. If you have any questions or need further assistance, feel free to contact me. Happy browsing!
 

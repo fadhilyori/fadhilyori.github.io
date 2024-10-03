@@ -93,7 +93,7 @@ Di sini saya akan memberikan panduan menggunakan DNS-over-TLS di Android dengan 
 
 - Pilih 'Private DNS provider hostname'.
 
-- Masukkan hostname DNS di kolom yang disediakan, lalu klik 'Save'.
+- Masukkan hostname DNS di kolom yang disediakan tanpa menggunakan `tls://` (contoh: `free.dns.fadhilyori.my.id`), lalu klik 'Save'.
 
 Semoga tutorial singkat ini bisa membantu kalian semua untuk mendapatkan akses internet yang lebih aman dan nyaman. Jika ada pertanyaan atau perlu bantuan lebih lanjut, jangan ragu untuk kontak saya. Selamat mencoba!
 
