@@ -76,13 +76,13 @@ visudo
 
 Kemudian, tambahkan baris berikut di bagian akhir berkas (ganti `nama_pengguna` dengan nama pengguna yang sebenarnya):
 
-```bash
+```bash { title = "/etc/sudoers" }
 nama_pengguna ALL=(ALL:ALL) ALL
 ```
 
 Jika Anda ingin pengguna tersebut dapat menjalankan perintah `sudo` tanpa perlu untuk memasukkan kata sandi, gunakan sintaks berikut:
 
-```bash
+```bash { title="/etc/sudoers" }
 nama_pengguna ALL=(ALL:ALL) NOPASSWD: ALL
 ```
 

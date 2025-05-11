@@ -165,8 +165,8 @@ params:
   cover:
     linkFullImages: false
     hidden: false
-    hiddenInList: true
-    hiddenInSingle: false
+    hiddenInList: false
+    hiddenInSingle: true
     responsiveImages: true
 
   # editPost:
@@ -184,14 +184,16 @@ params:
     keys: ["title", "permalink", "summary", "content"]
 
 pygmentsUseClasses: true
+pygmentsCodeFences: true
 markup:
   highlight:
     noClasses: false
-    # anchorLineNos: true
+    anchorLineNos: true
     codeFences: true
     guessSyntax: true
     lineNos: true
-    style: monokai
+    style: catppuccin-mocha
+    wrapperClass: highlight
   goldmark:
     renderer:
       unsafe: true
