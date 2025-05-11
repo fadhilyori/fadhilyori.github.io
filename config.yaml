@@ -1,11 +1,13 @@
 baseurl: https://www.fadhilyori.my.id
 theme: PaperMod
-paginate: 5
 title: Fadhil Yori
 defaultContentLanguage: id
 
 # GA Tracking ID
 googleAnalytics: G-VE4FZCJFS6
+
+pagination:
+  pagerSize: 5
 
 languages:
   en:
@@ -190,3 +192,6 @@ markup:
     guessSyntax: true
     lineNos: true
     style: monokai
+  goldmark:
+    renderer:
+      unsafe: true
