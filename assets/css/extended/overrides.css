@@ -1,0 +1,12 @@
+body {
+    font-size: 1.125rem;
+}
+
+.main {
+    max-width: calc((var(--main-width) * 1.4) + var(--gap) * 2);
+}
+
+.entry-cover img {
+    height: 300px;
+    object-fit: cover;
+}
