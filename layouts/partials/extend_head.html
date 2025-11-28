@@ -1,0 +1,14 @@
+{{- /* Custom Analytics Scripts */ -}}
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+<!-- Custom Analytics -->
+<script defer src="https://analytics.fadhilyori.my.id/script.js" data-website-id="89caf182-d20e-4fdc-aaa2-03097c670284"></script>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VE4FZCJFS6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VE4FZCJFS6');
+</script>
+{{- end }}
