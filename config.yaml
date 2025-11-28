@@ -3,8 +3,9 @@ theme: PaperMod
 title: Fadhil Yori
 defaultContentLanguage: id
 
-# GA Tracking ID
-googleAnalytics: G-VE4FZCJFS6
+analytics:
+  google: 
+    SiteVerificationTag: G-VE4FZCJFS6
 
 pagination:
   pagerSize: 5
