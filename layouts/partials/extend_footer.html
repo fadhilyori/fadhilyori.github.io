@@ -1,0 +1,15 @@
+{{- /* Custom Footer Scripts */ -}}
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+<!-- Add your custom scripts here -->
+<script type="text/javascript">
+  (() => {
+    const name = 'outbound-link-click';
+    document.querySelectorAll('a').forEach(a => {
+      if (a.host !== window.location.host && !a.getAttribute('data-umami-event')) {
+        a.setAttribute('data-umami-event', name);
+        a.setAttribute('data-umami-event-url', a.href);
+      }
+    });
+  })();
+</script>
+{{- end }}
