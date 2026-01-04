@@ -69,6 +69,9 @@ Ingat, *compounding* itu sifatnya netral. Dia nggak peduli apakah yang kamu tana
 
 
 ### **Compounding yang menguntungkan (Virtuous Cycle)**
+
+[![Virtuous Cycle](https://images.prismic.io/sketchplanations/0d8af641-db51-4d9a-b92e-a00018ba3e17_146720668266.jpg?auto=format&fit=max&w=500&q=95)](https://sketchplanations.com/exercise-and-sleep)
+
 Ini terjadi ketika kamu melakukan hal kecil yang positif secara konsisten dalam jangka panjang.
 
 1. **Kekayaan (investasi)**: Ini mekanisme di mana asetmu menghasilkan keuntungan, lalu keuntungan itu diputar lagi untuk menghasilkan keuntungan baru—persis seperti efek bola salju (*snowball effect*). Coba bayangin kamu rutin investasi Rp 1 juta tiap bulan di pasar modal dengan imbal hasil 10% per tahun. Alih-alih mengambil cuannya buat jajan, kamu investasikan lagi. Lama-kelamaan, uangmu bakal bekerja sendiri melipatgandakan nilainya secara eksponensial, jauh melampaui tabungan biasa tanpa kamu harus kerja lebih keras.
@@ -78,6 +81,8 @@ Ini terjadi ketika kamu melakukan hal kecil yang positif secara konsisten dalam 
 3. **Kesehatan**: Ini seperti merawat mesin kendaraan agar awet puluhan tahun. Efek *compounding*-nya ada pada daya tahan. Setiap kali kamu olahraga, kamu sedang memperpanjang umur tubuhmu. Coba bayangin kamu meluangkan waktu 30 menit untuk *jogging* atau jalan santai setiap pagi. Hasilnya memang tidak terlihat besok atau lusa, kamu tetap terlihat sama. Namun, saat usiamu menyentuh 50 tahun, ketika teman-temanmu mulai sering sakit karena penyakit degeneratif, kamu masih bugar, mampu naik tangga tanpa ngos-ngosan, dan menikmati hidup dengan energi penuh.
 
 ### **Compounding yang berbahaya (Vicious Cycle)**
+
+[![Cycle of Depression](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Cycle_of_depression.jpg/500px-Cycle_of_depression.jpg)](https://en.wikipedia.org/wiki/Vicious_circle)
 
 Bahaya terbesar compounding adalah kita sering tidak merasakannya di awal, karena efek buruknya menumpuk perlahan namun pasti.
 
@@ -94,3 +99,8 @@ Bahaya terbesar compounding adalah kita sering tidak merasakannya di awal, karen
 ## Jadi, kapan mau mulai?
 
 Pada akhirnya, sabar bukan berarti diam menunggu nasib, melainkan aktif menjaga konsistensi. Kita sering kali melebih-lebihkan apa yang bisa kita capai dalam satu hari, tapi meremehkan apa yang bisa kita bangun dalam sepuluh tahun. Mulailah dari hal kecil, pilih bunga mana yang ingin kamu pupuk, dan biarkan waktu bekerja sebagai sahabat terbaikmu. Ingat, *compounding* tidak butuh kegeniusan, ia hanya butuh waktu dan ketekunan.
+
+## Referensi
+- [Vicious Circle](https://en.wikipedia.org/wiki/Vicious_circle)
+- [Exercise and Sleep](https://sketchplanations.com/exercise-and-sleep)
+- [The Power of a Virtuous Cycle to Motivate Long-Term Goals](https://www.thinkingdirections.com/the-power-of-a-virtuous-cycle-to-motivate-long-term-goals/)
