@@ -64,8 +64,8 @@ Dimana $n$ adalah waktu/frekuensi, dan $r$ adalah tingkat pertumbuhan (atau kons
 
 Ingat, *compounding* itu sifatnya netral. Dia nggak peduli apakah yang kamu tanam itu benih baik atau buruk; tugasnya hanya melipatgandakan hasil seiring berjalannya waktu. Prinsip ini bisa jadi sahabat terbaikmu, atau justru musuh yang diam-diam menghancurkanmu.
 
-> "Waktu adalah teman bagi bisnis yang luar biasa, dan musuh bagi bisnis yang biasa-biasa saja."  
-> -- **Warren Buffett**
+> "Jika waktumu tidak menghasilkan uang, kecerdasan, atau kesehatan, maka waktu itu tidak layak untuk dihabiskan."  
+> -- **Unknown**
 
 
 ### **Compounding yang menguntungkan (Virtuous Cycle)**
