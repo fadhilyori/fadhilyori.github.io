@@ -1,0 +1,57 @@
+{{- if lt hugo.Version "0.146.0" }}
+{{- errorf "=> hugo v0.146.0 or greater is required for hugo-PaperMod to build " }}
+{{- end -}}
+
+<!DOCTYPE html>
+{{- $theme := site.Params.defaultTheme | default "auto" }}
+{{- if eq $theme "dark" }}
+<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}" data-theme="dark">
+{{- else if eq $theme "light" }}
+<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}" data-theme="light">
+{{- else }}
+<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}" data-theme="auto">
+{{- end }}
+
+<head>
+    {{- partial "head.html" . }}
+</head>
+
+{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) }}
+<body class="list" id="top">
+{{- else }}
+<body id="top">
+{{- end }}
+    {{ partialCached "header.html" . .Page -}}
+    <main class="main">
+        {{- block "main" . }}{{ end }}
+    </main>
+    {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
+
+    {{- with .Store.Get "hasMermaid" }}
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+
+        const diagrams = Array.from(document.querySelectorAll('pre.mermaid'));
+        const sources = new Map(diagrams.map(el => [el, el.textContent]));
+
+        const mermaidTheme = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default';
+
+        async function renderAll() {
+            mermaid.initialize({ startOnLoad: false, theme: mermaidTheme() });
+            diagrams.forEach(el => {
+                el.removeAttribute('data-processed');
+                el.textContent = sources.get(el);
+            });
+            await mermaid.run({ nodes: diagrams });
+        }
+
+        renderAll();
+
+        new MutationObserver(muts => {
+            if (muts.some(m => m.attributeName === 'data-theme')) renderAll();
+        }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    </script>
+    {{- end }}
+</body>
+
+</html>
