@@ -31,7 +31,7 @@ cover:
 
 I built a [`time_awareness`](https://github.com/fadhilyori/fadhilyori-hermes-plugins/tree/main/time_awareness) plugin for [Hermes Agent](https://hermes-agent.nousresearch.com/). The job is simple: inject accurate local time into the LLM context on every conversation turn. The plugin is open-source and free for anyone to use.
 
-> **Repository:** [github.com/fadhilyori/hermes-plugins](https://github.com/fadhilyori/fadhilyori-hermes-plugins)
+> **Repository:** [github.com/fadhilyori/fadhilyori-hermes-plugins](https://github.com/fadhilyori/fadhilyori-hermes-plugins)
 > **Plugin:** [`time_awareness`](https://github.com/fadhilyori/fadhilyori-hermes-plugins/tree/main/time_awareness)
 > **Stack:** Python 3.11+, `zoneinfo`, `pre_llm_call` hook
 
@@ -55,7 +55,7 @@ For a casual chatbot that only gets asked "what's 2+2?", that's fine. But the mo
 
 Hermes Agent, the runtime I use every day, is already fairly clever about this. At the start of a session, it injects a single line into the system prompt:
 
-```text
+```text {linenos=false}
 Conversation started: Friday, July 12, 2026
 ```
 
@@ -208,7 +208,7 @@ The output looks like this:
 2026-07-12T14:32+07:00 Sun Asia/Jakarta
 ```
 
-One line, all the info the agent needs: full ISO-style date, explicit offset, day of the week, and IANA zone name. No fluff like "yesterday/tomorrow/weekend". The agent can derive those itself. I deliberately minimized the output: every extra byte accumulates over the course of a session, so I needed to economize on tokens. Especially for anyone running a local model with a limited *context length/window*.
+One line, all the info the agent needs: full ISO-style date, explicit offset, day of the week, and IANA zone name. No added text like "yesterday/tomorrow/weekend". The agent can determine that itself. I deliberately minimized the output because every extra byte accumulates over the course of a session, so I needed to economize on tokens. Especially for anyone running Hermes Agent with a local model or one with a limited *context length/window*.
 
 ### `__init__.py`: the entry point
 
@@ -265,13 +265,13 @@ Now every time I chat with Hermes — on Discord, Telegram, or terminal — the 
 
 in its context, fresh every turn. No matter if we've been chatting for 5 minutes or 5 hours, no matter if the timezone changes due to DST (Indonesia doesn't have it, but if I move countries, the plugin follows), no matter if I'm continuing an old session or starting a new one.
 
-And more importantly: no more "what time do you think it is??" moments, because the answer is always *now*.
+And more importantly: no more moments where the *agent* sets the wrong schedule or reminder because the model doesn't call any *tool* or command related to getting the current time, like `date`.
 
 ---
 
-## Sources and links
+## References
 
-- **Plugin source:** [github.com/fadhilyori/hermes-plugins/tree/main/time_awareness](https://github.com/fadhilyori/hermes-plugins/tree/main/time_awareness)
+- **Plugin source:** [github.com/fadhilyori/fadhilyori-hermes-plugins/tree/main/time_awareness](https://github.com/fadhilyori/fadhilyori-hermes-plugins/tree/main/time_awareness)
 - **Hermes Agent docs:** [hermes-agent.nousresearch.com/docs](https://hermes-agent.nousresearch.com/docs)
 - **Hook events reference:** [docs/user-guide/features/hooks](https://hermes-agent.nousresearch.com/docs/user-guide/features/hooks)
 - **Plugin authoring guide:** [docs/guides/build-a-hermes-plugin](https://hermes-agent.nousresearch.com/docs/guides/build-a-hermes-plugin)

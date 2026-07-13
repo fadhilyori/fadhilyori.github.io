@@ -55,7 +55,7 @@ Untuk chatbot kasual yang cuma ditanya "berapa 2+2?", ini tidak masalah. Tapi be
 
 Hermes Agent, runtime yang saya pakai sehari-hari, sudah cukup pintar soal ini. Di awal sesi, dia menyuntikkan satu baris ke system prompt:
 
-```text
+```text {linenos=false}
 Conversation started: Friday, July 12, 2026
 ```
 
@@ -259,7 +259,7 @@ Satu hal yang menarik: kalau `ZoneInfo("Asia/Jakarta")` gagal karena tzdata tida
 
 Sekarang setiap kali saya chat dengan Hermes, di Discord, Telegram, atau terminal, agent lihat sesuatu seperti:
 
-```text
+```text {linenos=false}
 2026-07-12T14:32+07:00 Sun Asia/Jakarta
 ```
 
@@ -271,7 +271,7 @@ Dan yang lebih penting: tidak ada lagi momen dimana *agent* salah set jadwal ata
 
 ## Referensi
 
-- **Plugin source:** [github.com/fadhilyori/hermes-plugins/tree/main/time_awareness](https://github.com/fadhilyori/hermes-plugins/tree/main/time_awareness)
+- **Plugin source:** [github.com/fadhilyori/fadhilyori-hermes-plugins/tree/main/time_awareness](https://github.com/fadhilyori/fadhilyori-hermes-plugins/tree/main/time_awareness)
 - **Hermes Agent docs:** [hermes-agent.nousresearch.com/docs](https://hermes-agent.nousresearch.com/docs)
 - **Hook events reference:** [docs/user-guide/features/hooks](https://hermes-agent.nousresearch.com/docs/user-guide/features/hooks)
 - **Plugin authoring guide:** [docs/guides/build-a-hermes-plugin](https://hermes-agent.nousresearch.com/docs/guides/build-a-hermes-plugin)
