@@ -22,15 +22,15 @@ fi
 
 DATE_PATH=$(date +%Y/%m/%d)
 
-export POST_SLUG="$SLUG"
-export POST_TITLE="$TITLE"
+export HUGO_POST_SLUG="$SLUG"
+export HUGO_POST_TITLE="$TITLE"
 
 CONTENT_DIR="content/posts/${DATE_PATH}/${SLUG}"
 
 hugo new --kind post "${CONTENT_DIR}/index.id.md"
 
 if [ -n "$TITLE_EN" ]; then
-    export POST_TITLE="$TITLE_EN"
+    export HUGO_POST_TITLE="$TITLE_EN"
 fi
 
 hugo new --kind post "${CONTENT_DIR}/index.en.md"
